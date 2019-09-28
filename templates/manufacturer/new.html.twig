@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Manufacturer
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Create new Manufacturer</h1>
+
+        {{ include('manufacturer/_form.html.twig') }}
+
+        <a href="{{ path('manufacturer_index') }}">back to list</a>
+
+    </div>
+{% endblock %}
