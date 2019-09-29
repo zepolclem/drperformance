@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminPanelController!
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-12">
+            <h2>Constructeurs</h2>
+
+        </div>
+
+        {% for manufacturer in manufacturers|sortbyfield('name') %}
+            <div class="col-6 col-md-2">
+                <div class="card border-0 text-center">
+                    <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="card-title">
+                            {{manufacturer.name}}
+                        </div>
+                        <div class="card-text">
+                            {{manufacturer.resume}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block navbarBottom %}
+    <div class="btn-group">
+        <a href="" class="btn btn-success">Ajouter un constructeur</a>
+    </div>
+{% endblock %}

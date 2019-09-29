@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+
 
 /**
  * @Route("/manufacturer")
@@ -37,6 +41,30 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $logoFile = $form['logo']->getData();
+
+            if ($logoFile) {
+                $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
+                // Move the file to the directory where logos are stored
+                try {
+                    $logoFile->move(
+                        $this->getParameter('logos_manufacturers_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'logoFilename' property to store the PDF file name
+
+                // instead of its contents
+                $manufacturer->setlogo($newFilename);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
             $entityManager->flush();
@@ -69,6 +97,36 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $logoFile = $form['logo']->getData();
+
+            if ($logoFile) {
+                $filesystem = new Filesystem();
+                if ($filesystem->exists('uploads/logos/manufacturers/' . $manufacturer->getLogo())) {
+                    $filesystem->remove(['symlink', 'uploads/logos/manufacturers/' . $manufacturer->getLogo(), 'activity.log']);
+                }
+
+                $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                // $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
+                $newFilename = $manufacturer->getName() . '-' . uniqid() . '.' . $logoFile->guessExtension();
+                // Move the file to the directory where logos are stored
+                try {
+                    $logoFile->move(
+                        $this->getParameter('logos_manufacturers_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'logoFilename' property to store the PDF file name
+
+                // instead of its contents
+                $manufacturer->setlogo($newFilename);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('manufacturer_index');
