@@ -10,29 +10,33 @@
             <h2>Constructeurs</h2>
 
         </div>
+    </div>
+    <div class="row align-items-center">
+
+        <div class="col-6 col-md-2">
+            <div class="card border-0 text-center">
+                <a href="{{path('manufacturer_new')}}" class="card-body">
+                    <div class="card-text">
+                        <i class="fi-xwsux4-plus-solid"></i>
+                    </div>
+
+                    <div class="card-text ">
+                        Ajouter un constructeur
+                    </div>
+
+                </a>
+            </div>
+
+        </div>
 
         {% for manufacturer in manufacturers|sortbyfield('name') %}
             <div class="col-6 col-md-2">
-                <div class="card border-0 text-center">
+                <a href="{{path('manufacturer_show', {'slug': manufacturer.slug})}}" class="card border-0 text-center" title={{manufacturer.name}}>
                     <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="card-title">
-                            {{manufacturer.name}}
-                        </div>
-                        <div class="card-text">
-                            {{manufacturer.resume}}
-                        </div>
-                    </div>
-                </div>
+                </a>
             </div>
         {% endfor %}
 
     </div>
 
-{% endblock %}
-
-{% block navbarBottom %}
-    <div class="btn-group">
-        <a href="" class="btn btn-success">Ajouter un constructeur</a>
-    </div>
 {% endblock %}

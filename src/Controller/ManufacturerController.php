@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use App\Service\FileUploader;
+
 
 
 /**
@@ -42,28 +44,15 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $logoFile = $form['logo']->getData();
+            $logo = $form['logo']->getData();
 
-            if ($logoFile) {
-                $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
-                // Move the file to the directory where logos are stored
-                try {
-                    $logoFile->move(
-                        $this->getParameter('logos_manufacturers_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'logoFilename' property to store the PDF file name
-
-                // instead of its contents
-                $manufacturer->setlogo($newFilename);
+            if ($logo) {
+                $fileUploader = new FileUploader('uploads/logos/manufacturers');
+                $logoName = $fileUploader->upload($logo);
+                $manufacturer->setlogo($logoName);
             }
+
+            $manufacturer->setSlug($manufacturer->getName());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
@@ -79,7 +68,7 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="manufacturer_show", methods={"GET"})
+     * @Route("/{slug}", name="manufacturer_show", methods={"GET"})
      */
     public function show(Manufacturer $manufacturer): Response
     {
@@ -89,7 +78,7 @@ class ManufacturerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="manufacturer_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="manufacturer_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Manufacturer $manufacturer): Response
     {
@@ -98,38 +87,22 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $logoFile = $form['logo']->getData();
+            $manufacturer->setSlug($manufacturer->getName());
+            $logo = $form['logo']->getData();
 
-            if ($logoFile) {
-                $filesystem = new Filesystem();
+            if ($logo) {
+                $fileUploader = new FileUploader('uploads/logos/manufacturers');
+                $filesystem = new Filesystem;
                 if ($filesystem->exists('uploads/logos/manufacturers/' . $manufacturer->getLogo())) {
                     $filesystem->remove(['symlink', 'uploads/logos/manufacturers/' . $manufacturer->getLogo(), 'activity.log']);
                 }
-
-                $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                // $newFilename = $safeFilename . '-' . uniqid() . '.' . $logoFile->guessExtension();
-                $newFilename = $manufacturer->getName() . '-' . uniqid() . '.' . $logoFile->guessExtension();
-                // Move the file to the directory where logos are stored
-                try {
-                    $logoFile->move(
-                        $this->getParameter('logos_manufacturers_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'logoFilename' property to store the PDF file name
-
-                // instead of its contents
-                $manufacturer->setlogo($newFilename);
+                $logoName = $fileUploader->upload($logo);
+                $manufacturer->setlogo($logoName);
             }
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('manufacturer_index');
+            return $this->redirectToRoute('admin_manufacturers');
         }
 
         return $this->render('manufacturer/edit.html.twig', [
@@ -146,6 +119,12 @@ class ManufacturerController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $manufacturer->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($manufacturer);
+
+            $filesystem = new Filesystem();
+            if ($filesystem->exists('uploads/logos/manufacturers/' . $manufacturer->getLogo())) {
+                $filesystem->remove(['symlink', 'uploads/logos/manufacturers/' . $manufacturer->getLogo(), 'activity.log']);
+            }
+
             $entityManager->flush();
         }
 

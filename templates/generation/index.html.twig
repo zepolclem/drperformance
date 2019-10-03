@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Generation index{% endblock %}
+
+{% block body %}
+    <h1>Generation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Resume</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for generation in generations %}
+            <tr>
+                <td>{{ generation.id }}</td>
+                <td>{{ generation.name }}</td>
+                <td>{{ generation.startDate ? generation.startDate|date('Y-m-d') : '' }}</td>
+                <td>{{ generation.endDate ? generation.endDate|date('Y-m-d') : '' }}</td>
+                <td>{{ generation.resume }}</td>
+                <td>
+                    <a href="{{ path('generation_show', {'id': generation.id}) }}">show</a>
+                    <a href="{{ path('generation_edit', {'id': generation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('generation_new') }}">Create new</a>
+{% endblock %}

@@ -19,6 +19,22 @@ class ManufacturerRepository extends ServiceEntityRepository
         parent::__construct($registry, Manufacturer::class);
     }
 
+
+    /**
+     * @return Manufacturer[] Returns an array of Manufacturer objects
+     */
+
+    public function findByAllSortedByName()
+    {
+        return $this->createQueryBuilder('m')
+            // ->andWhere('m.exampleField = :val')
+            // ->setParameter('val', $value)
+            ->orderBy('m.name', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Manufacturer[] Returns an array of Manufacturer objects
     //  */

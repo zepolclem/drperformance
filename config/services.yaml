@@ -33,3 +33,8 @@ services:
         tags:
             - { name: twig.extension }
 
+
+    # App\Service\FileUploader:
+    #     arguments:
+    #         $targetDirectory: '%logos/manufacturers/%'
+

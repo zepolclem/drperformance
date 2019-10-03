@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Generation{% endblock %}
+
+{% block body %}
+    <h1>Edit Generation</h1>
+
+    {{ include('generation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('generation_index') }}">back to list</a>
+
+    {{ include('generation/_delete_form.html.twig') }}
+{% endblock %}

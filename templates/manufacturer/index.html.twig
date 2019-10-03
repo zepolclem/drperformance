@@ -1,41 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manufacturer index
+{% block title %}Hello AdminPanelController!
 {% endblock %}
 
 {% block body %}
-    <h1>Manufacturer index</h1>
+    <div class="row">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Resume</th>
-                <th>Logo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for manufacturer in manufacturers %}
-                <tr>
-                    <td>{{ manufacturer.id }}</td>
-                    <td>{{ manufacturer.name }}</td>
-                    <td>{{ manufacturer.resume }}</td>
-                    <td><img class="img-fluid" width="50px" src="/uploads/logos/manufacturers/{{ manufacturer.logo }}" alt=""></td>
+        <div class="col-12">
+            <h2>Constructeurs</h2>
 
-                    <td>
-                        <a href="{{ path('manufacturer_show', {'id': manufacturer.id}) }}">show</a>
-                        <a href="{{ path('manufacturer_edit', {'id': manufacturer.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">no records found</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        </div>
+    </div>
+    <div class="row align-items-center">
 
-    <a href="{{ path('manufacturer_new') }}">Create new</a>
+        <div class="col-6 col-md-2">
+            <div class="card border-0 text-center">
+                <a href="{{path('manufacturer_new')}}" class="card-body">
+                    <div class="card-text">
+                        <i class="fi-xwsux4-plus-solid"></i>
+                    </div>
+                    <div class="card-text ">
+                        Ajouter un constructeur
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        {% for manufacturer in manufacturers|sortbyfield('name') %}
+            <div class="col-6 col-md-2">
+                <a href="{{path('manufacturer_show', {'slug': manufacturer.slug})}}" class="card my-3 border-0 text-center" title={{manufacturer.name}}>
+                    <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" class="img-fluid" alt="...">
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+
 {% endblock %}

@@ -6,6 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Cocur\Slugify\Slugify;
+
+
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
  */
@@ -29,7 +34,8 @@ class Model
     private $resume;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="carModels")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Manufacturer", inversedBy="Models")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $manufacturer;
 
@@ -37,6 +43,11 @@ class Model
      * @ORM\OneToMany(targetEntity="App\Entity\Generation", mappedBy="Model", orphanRemoval=true)
      */
     private $generations;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -112,6 +123,18 @@ class Model
             }
         }
 
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $name): self
+    {
+        $slug = new Slugify();
+        $this->slug  =  $slug->slugify($name);
         return $this;
     }
 }

@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Cocur\Slugify\Slugify;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ManufacturerRepository")
  */
@@ -38,10 +40,16 @@ class Manufacturer
      */
     private $models;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -112,6 +120,19 @@ class Manufacturer
             }
         }
 
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+
+    public function setSlug(string $name): self
+    {
+        $slug = new Slugify();
+        $this->slug  =  $slug->slugify($name);
         return $this;
     }
 }
