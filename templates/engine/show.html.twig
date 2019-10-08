@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Engine
+{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{path('manufacturer_show', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
+            </li>
+            <li class="breadcrumb-item">
+                {{model.name}}
+            </li>
+            <li class="breadcrumb-item">
+                {{generation.name}}
+                |
+                {{generation.startYear}}
+                <i class="fi-xnlrxl-chevron"></i>
+                {{generation.endYear}}
+            </li>
+            <li class="breadcrumb-item font-weight-bold">
+                {{engine.name}}
+                <span class="font-weight-light small">
+                    _
+                    {{engine.power}}
+                    ch
+                </span>
+
+            </li>
+        </ol>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 text-center">
+                <ul class="list-group list-group-horizontal">
+                    {% if engine.power %}
+                        <li class="list-group-item">
+                            {{engine.power}}
+                            ch
+                        </li>
+                    {% endif %}
+                    {% if engine.torque %}
+                        <li class="list-group-item">
+                            {{engine.torque}}
+                            Nm
+                        </li>
+                    {% endif %}
+                    {% if engine.cylinderCapacity %}
+                        <li class="list-group-item">{{engine.cylinderCapacity}}
+                            cm3</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <nav class="nav">
+                    <a class="nav-link" href="{{path('engine_edit', {'slug':engine.slug})}}" title="Editer le moteur">
+                        <i class="fi-xnsuxl-edit-solid"></i>
+                        Éditer moteur
+                    </a>
+                    <a class="nav-link" href="{{path('engine_edit', {'slug':engine.slug})}}" title="Ajouter une reprogrammation">
+                        <i class="fi-xnsuxl-plus-solid"></i>
+                        Ajouter reprog
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    {% for map in engine.maps %}
+        <div class="container">
+            <div class="row pt-5">
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table table-bordered text-right">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{map.name}}</th>
+                                    <th scope="col">Origine</th>
+                                    <th scope="col">Reprogrammation</th>
+                                    <th scope="col">Gain</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Puissance</th>
+                                    <td>
+                                        {{engine.power}}
+                                        ch
+                                    </td>
+                                    <td>
+                                        {{map.power}}
+                                        ch
+                                    </td>
+                                    <td>
+                                        +
+                                        {{map.power - engine.power}}
+                                        ch
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Couple</th>
+                                    <td>
+                                        {{engine.torque}}
+                                        Nm
+                                    </td>
+                                    <td>
+                                        {{map.torque}}
+                                        Nm
+                                    </td>
+                                    <td>
+                                        +
+                                        {{map.torque - engine.torque}}
+                                        Nm
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row" colspan="3">Prix TVA inclus :</th>
+                                    <td>
+                                        {{map.price}}
+                                        €
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <img src="https://via.placeholder.com/300" alt="" class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}

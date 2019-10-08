@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GenerationRepository")
@@ -22,19 +26,25 @@ class Generation
     private $name;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $startDate;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $endDate;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $resume;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $startYear;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $endYear;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Model", inversedBy="generations")
@@ -43,9 +53,16 @@ class Generation
     private $model;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Engine", mappedBy="generation", orphanRemoval=true)
      */
-    private $slug;
+    private $engines;
+
+    public function __construct()
+    {
+        $this->engines = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -64,29 +81,6 @@ class Generation
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(\DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(?\DateTimeInterface $endDate): self
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
 
     public function getResume(): ?string
     {
@@ -96,6 +90,44 @@ class Generation
     public function setResume(?string $resume): self
     {
         $this->resume = $resume;
+
+        return $this;
+    }
+
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $stringToSlugify): self
+    {
+        $slug = new Slugify();
+        $this->slug  =  $slug->slugify($stringToSlugify);
+        return $this;
+    }
+
+
+    public function getStartYear(): ?int
+    {
+        return $this->startYear;
+    }
+
+    public function setStartYear(int $startYear): self
+    {
+        $this->startYear = $startYear;
+
+        return $this;
+    }
+
+    public function getEndYear(): ?int
+    {
+        return $this->endYear;
+    }
+
+    public function setEndYear(?int $endYear): self
+    {
+        $this->endYear = $endYear;
 
         return $this;
     }
@@ -112,14 +144,33 @@ class Generation
         return $this;
     }
 
-    public function getSlug(): ?string
+    /**
+     * @return Collection|Engine[]
+     */
+    public function getEngines(): Collection
     {
-        return $this->slug;
+        return $this->engines;
     }
 
-    public function setSlug(string $slug): self
+    public function addEngine(Engine $engine): self
     {
-        $this->slug = $slug;
+        if (!$this->engines->contains($engine)) {
+            $this->engines[] = $engine;
+            $engine->setGeneration($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEngine(Engine $engine): self
+    {
+        if ($this->engines->contains($engine)) {
+            $this->engines->removeElement($engine);
+            // set the owning side to null (unless already changed)
+            if ($engine->getGeneration() === $this) {
+                $engine->setGeneration(null);
+            }
+        }
 
         return $this;
     }

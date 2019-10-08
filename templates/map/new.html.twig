@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Map{% endblock %}
+
+{% block body %}
+    <h1>Create new Map</h1>
+
+    {{ include('map/_form.html.twig') }}
+
+    <a href="{{ path('map_index') }}">back to list</a>
+{% endblock %}

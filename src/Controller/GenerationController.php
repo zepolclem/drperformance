@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Generation;
 use App\Form\GenerationType;
+use App\Entity\Model;
+use App\Repository\ModelRepository;
 use App\Repository\GenerationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,20 +28,35 @@ class GenerationController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="generation_new", methods={"GET","POST"})
+     * @Route("/{slug}/new", name="generation_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Model $model): Response
     {
         $generation = new Generation();
         $form = $this->createForm(GenerationType::class, $generation);
         $form->handleRequest($request);
 
+
+        // var_dump($model->getName());
+        // die;
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // $logo = $form['logo']->getData();
+
+            // if ($logo) {
+            //     $fileUploader = new FileUploader('uploads/logos/manufacturers');
+            //     $logoName = $fileUploader->upload($logo);
+            //     $manufacturer->setlogo($logoName);
+            // }
+            $generation->setSlug($model->getManufacturer()->getName() . ' ' . $model->getName() . ' ' . $generation->getName() . ' ' . $generation->getStartYear() . ' ' . $generation->getEndYear());
+            $model->addGeneration($generation);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($generation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('generation_index');
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $model->getManufacturer()->getSlug()]);
         }
 
         return $this->render('generation/new.html.twig', [
@@ -59,7 +76,7 @@ class GenerationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="generation_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="generation_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Generation $generation): Response
     {
@@ -69,7 +86,7 @@ class GenerationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('generation_index');
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $generation->getModel()->getManufacturer()->getSlug()]);
         }
 
         return $this->render('generation/edit.html.twig', [
@@ -89,6 +106,6 @@ class GenerationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('generation_index');
+        return $this->redirectToRoute('manufacturer_show', ['slug' => $generation->getModel()->getManufacturer()->getSlug()]);
     }
 }

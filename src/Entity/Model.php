@@ -39,15 +39,16 @@ class Model
      */
     private $manufacturer;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Generation", mappedBy="Model", orphanRemoval=true)
-     */
-    private $generations;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Generation", mappedBy="model", orphanRemoval=true)
+     */
+    private $generations;
 
     public function __construct()
     {
@@ -95,6 +96,18 @@ class Model
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $stringToSlugify): self
+    {
+        $slug = new Slugify();
+        $this->slug  =  $slug->slugify($stringToSlugify);
+        return $this;
+    }
+
     /**
      * @return Collection|Generation[]
      */
@@ -123,18 +136,6 @@ class Model
             }
         }
 
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $name): self
-    {
-        $slug = new Slugify();
-        $this->slug  =  $slug->slugify($name);
         return $this;
     }
 }
