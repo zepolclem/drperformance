@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manufacturer
+{% block title %}
+    {{manufacturer.name}}
 {% endblock %}
 
 {% block body %}
@@ -11,31 +12,30 @@
             <img class="img-fluid mx-auto d-block" width="250px;" src="/uploads/logos/manufacturers/{{manufacturer.logo}}" alt="">
         </div>
 
-        <div class="col-md-6">
-            <h1>{{manufacturer.name}}</h1>
-        </div>
-
-        <div class="col-md-6 text-right">
-            <div class="btn-group">
-                <a class="btn btn-primary" href="{{ path('manufacturer_index') }}">Retour</a>
-                <a class="btn btn-secondary" href="{{ path('manufacturer_edit', {'slug': manufacturer.slug}) }}">
+        <div class="col-12">
+            <h1 class="ml-5">{{manufacturer.name}}</h1>
+            <nav class="nav">
+                <a class="nav-link" href="{{ path('manufacturer_edit', {'slug': manufacturer.slug}) }}">
                     <i class="fi-xnsuxl-edit-solid"></i>
                     Éditer constructeur</a>
-                <a class="btn btn-primary" href="{{ path('model_new')}}">Ajouter un modèle</a>
-            </div>
+                <a class="nav-link" href="{{ path('model_new', {'slug': manufacturer.slug}) }}">
+                    <i class="fi-xnsuxl-plus-solid"></i>
+                    Ajouter modèle</a>
+            </nav>
+
         </div>
     </div>
 
 
     <div class="row">
         <div class="col">
-            {{manufacturer.resume}}
+            <p>{{manufacturer.resume}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            <h2>Modèles</h2>
+            <h2 class="ml-5">Modèles</h2>
         </div>
     </div>
 
@@ -69,6 +69,9 @@
 
 
                                     <div class="card  h-100 ">
+                                        <img src="https://via.placeholder.com/300x200" alt="" class="card-img-top">
+
+
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -91,7 +94,6 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-
                                             <div class="card-text">
                                                 {% for engine in generation.engines|sortbyfield('name') %}
                                                     <a href="{{path('engine_show', {'slug':engine.slug})}}">
@@ -113,7 +115,14 @@
                                 </div>
                             {% else %}
                                 <div class="card-body">
-                                    <div class="card-text">_</div>
+                                    <div class="card-text">
+                                        Aucune génération de
+                                        {{model.name}}.
+                                        <br>
+                                        <a class="card-link" href="{{path('generation_new', {'slug':model.slug})}}">
+                                            En ajouter une !</a>
+
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -121,7 +130,9 @@
                 </div>
             </div>
         {% else %}
-            Pas de modèle
+            <div class="col text-center">
+                Pas de modèle
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

@@ -4,63 +4,71 @@
 {% endblock %}
 
 {% block body %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="{{path('manufacturer_show', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
-            </li>
-            <li class="breadcrumb-item">
-                {{model.name}}
-            </li>
-            <li class="breadcrumb-item">
-                {{generation.name}}
-                |
-                {{generation.startYear}}
-                <i class="fi-xnlrxl-chevron"></i>
-                {{generation.endYear}}
-            </li>
-            <li class="breadcrumb-item font-weight-bold">
-                {{engine.name}}
-                <span class="font-weight-light small">
-                    _
-                    {{engine.power}}
-                    ch
-                </span>
+    <div class="container">
+        <div class="row py-3">
+            <div class="col">
+                <a href="{{ path('manufacturer_show', {'slug' : generation.model.manufacturer.slug})}}">
 
-            </li>
-        </ol>
-    </nav>
+                    <i class="fi-xwllxl-arrow-simple-wide"></i>
+                    Retour
+                </a>
+
+            </div>
+        </div>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{path('manufacturer_show', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    {{model.name}}
+                </li>
+                <li class="breadcrumb-item">
+                    {{generation.name}}
+                    |
+                    {{generation.startYear}}
+                    <i class="fi-xnlrxl-chevron"></i>
+                    {{generation.endYear}}
+                </li>
+                <li class="breadcrumb-item font-weight-bold">
+                    {{engine.name}}
+                    <span class="font-weight-light small">
+                        _
+                        {{engine.power}}
+                        ch
+
+                        {% if engine.turbo %}
+                            | Turbo
+                        {% endif %}
+                        {% if engine.torque %}
+                            |
+                            {{engine.torque}}
+                            Nm
+                        {% endif %}
+                        {% if engine.cylinderCapacity %}
+                            |
+                            {{engine.cylinderCapacity}}
+                            cm3
+                        {% endif %}
+                    </span>
+                </li>
+            </ol>
+        </nav>
+
+    </div>
 
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 text-center">
-                <ul class="list-group list-group-horizontal">
-                    {% if engine.power %}
-                        <li class="list-group-item">
-                            {{engine.power}}
-                            ch
-                        </li>
-                    {% endif %}
-                    {% if engine.torque %}
-                        <li class="list-group-item">
-                            {{engine.torque}}
-                            Nm
-                        </li>
-                    {% endif %}
-                    {% if engine.cylinderCapacity %}
-                        <li class="list-group-item">{{engine.cylinderCapacity}}
-                            cm3</li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="col-md-4">
+        <div class="row pt-3">
+            <div class="col-12">
                 <nav class="nav">
-                    <a class="nav-link" href="{{path('engine_edit', {'slug':engine.slug})}}" title="Editer le moteur">
+                    <a class="nav-link btn btn-primary mx-1" href="{{path('engine_edit', {'slug':engine.slug})}}" title="Editer le moteur">
                         <i class="fi-xnsuxl-edit-solid"></i>
                         Éditer moteur
                     </a>
-                    <a class="nav-link" href="{{path('engine_edit', {'slug':engine.slug})}}" title="Ajouter une reprogrammation">
+                    <a class="nav-link btn btn-primary mx-1" href="{{path('map_new', {'slug':engine.slug})}}" title="Ajouter une reprogrammation">
+
                         <i class="fi-xnsuxl-plus-solid"></i>
                         Ajouter reprog
                     </a>
@@ -71,7 +79,7 @@
 
 
     {% for map in engine.maps %}
-        <div class="container">
+        <div class="container mb-3">
             <div class="row pt-5">
                 <div class="col-md-8">
                     <div class="table-responsive">
@@ -117,26 +125,47 @@
                                         {{map.torque - engine.torque}}
                                         Nm
                                     </td>
+                                </tr>
+                                {% if map.price %}
+                                    <tr>
+                                        <th scope="row" colspan="3">Prix TVA inclus :</th>
+                                        <td>
+                                            {{map.price}}
+                                            €
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <th scope="row" colspan="4">Prix sur demande</th>
+                                    </tr>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row" colspan="3">Prix TVA inclus :</th>
-                                    <td>
-                                        {{map.price}}
-                                        €
-                                    </td>
-                                </tr>
+                                {% endif %}
+                                {% if map.resume %}
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="col text-left">
+                                                <p>{{map.resume|raw}}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                {% endif %}
                             </tbody>
                         </table>
-
                     </div>
-
                 </div>
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/300" alt="" class="img-fluid">
+                <div class="col-md-4"><img src="https://via.placeholder.com/300" alt="" class="img-fluid"></div>
+            </div>
+            <div class="row">
+                <div class="col-12 p-3">
+                    <nav class="nav">
+                        <a class="nav-link btn btn-outline-primary btn-sm" href="{{path('map_edit', {'id':map.id})}}" title="Editer le moteur">
+                            <i class="fi-xnsuxl-edit-solid"></i>
+                            Éditer cartographie</a>
+                    </nav>
                 </div>
             </div>
-
         </div>
     {% endfor %}
 {% endblock %}

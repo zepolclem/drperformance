@@ -1,13 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Model{% endblock %}
+{% block title %}
+    Éditer modèle –
+    {{model.manufacturer.name}}
+    -
+    {{model.name}}
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Model</h1>
 
-    {{ include('model/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('model_index') }}">back to list</a>
+    <div class="container">
+        <a href="{{ path('manufacturer_index') }}">
+            <i class="fi-xwllxl-arrow-simple-wide"></i>
+            Retour
+        </a>
 
-    {{ include('model/_delete_form.html.twig') }}
-{% endblock %}
+        <div class="row py-5">
+            <div class="col">
+                <h1>Éditer
+                    {{model.manufacturer.name}}
+                    {{model.name}}</h1>
+                {{ include('model/_form.html.twig', {'button_label': 'Update'}) }}
+                <br>
+                {{ include('model/_delete_form.html.twig') }}
+            </div>
+        </div>
+
+    {% endblock %}

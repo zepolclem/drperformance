@@ -1,11 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Generation{% endblock %}
+{% block title %}
+    Nouvelle génération
+    {{generation.model.manufacturer.name}}
+    {{generation.model.name}}
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Generation</h1>
 
-    {{ include('generation/_form.html.twig') }}
+    <div class="container">
+        <a href="{{ path('manufacturer_show', {'slug' : generation.model.manufacturer.slug})}}">
+            <i class="fi-xwllxl-arrow-simple-wide"></i>
+            Retour
+        </a>
 
-    <a href="{{ path('generation_index') }}">back to list</a>
+
+        <div class="row py-5">
+            <div class="col">
+                <h1>Créer une nouvelle génération</h1>
+                <h2 class="font-weight-light">{{generation.model.manufacturer.name}}
+                    {{generation.model.name}}</h2>
+                <br>
+                {{ include('generation/_form.html.twig') }}
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

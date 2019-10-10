@@ -1,11 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Map{% endblock %}
+{% block title %}
+    Nouvelle cartographie
+    {{generation.model.name}}
+    {{engine.name}}
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Map</h1>
+    <div class="container">
+        <a href="{{ path('manufacturer_show', {'slug' : generation.model.manufacturer.slug})}}">
+            <i class="fi-xwllxl-arrow-simple-wide"></i>
+            Retour
+        </a>
+        <div class="row py-5">
+            <div class="col">
+                <h1>Créer une nouvelle cartographie</h1>
+                <h2 class="font-weight-light">
+                    {{generation.model.manufacturer.name}}
+                    {{generation.model.name}}
+                </h2>
+                <h3>
+                    {{engine.name}}
 
-    {{ include('map/_form.html.twig') }}
+                </h3>
+                <h4 class="font-weight-light">
+                    {{engine.power}}
+                    ch
+                </h4>
 
-    <a href="{{ path('map_index') }}">back to list</a>
+                <br>
+                {{ include('map/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
