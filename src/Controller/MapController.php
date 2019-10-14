@@ -48,6 +48,8 @@ class MapController extends AbstractController
 
         return $this->render('map/new.html.twig', [
             'map' => $map,
+            'engine' => $engine,
+            'generation' => $engine->getGeneration(),
             'form' => $form->createView(),
         ]);
     }
@@ -67,16 +69,22 @@ class MapController extends AbstractController
      */
     public function edit(Request $request, Map $map): Response
     {
+        $engine = $map->getEngine();
+        $generation = $engine->getGeneration();
+
         $form = $this->createForm(MapType::class, $map);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('map_index');
+            return $this->redirectToRoute('engine_show', ['slug' => $engine->getslug()]);
         }
 
         return $this->render('map/edit.html.twig', [
+            'engine' =>  $engine,
+            'generation' => $generation,
             'map' => $map,
             'form' => $form->createView(),
         ]);
@@ -93,6 +101,6 @@ class MapController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('map_index');
+        return $this->redirectToRoute('engine_show', ['slug' => $map->getEngine()->getslug()]);
     }
 }

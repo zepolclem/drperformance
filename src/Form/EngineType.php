@@ -18,7 +18,7 @@ class EngineType extends AbstractType
             ])
             ->add('power', null, [
                 'label' => 'Puissance',
-                'help' => 'En en cv'
+                'help' => 'En en ch'
             ])
             ->add('torque', null, [
                 'label' => 'Couple',

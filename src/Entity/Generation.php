@@ -57,6 +57,15 @@ class Generation
      */
     private $engines;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
+
+
+
+
+
     public function __construct()
     {
         $this->engines = new ArrayCollection();
@@ -132,6 +141,11 @@ class Generation
         return $this;
     }
 
+    public function getPeriode(): ?String
+    {
+        return $this->startYear . '_' . $this->endYear;
+    }
+
     public function getModel(): ?Model
     {
         return $this->model;
@@ -171,6 +185,18 @@ class Generation
                 $engine->setGeneration(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

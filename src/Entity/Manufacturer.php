@@ -36,7 +36,7 @@ class Manufacturer
     private $logo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Model", mappedBy="manufacturer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Model", mappedBy="manufacturer", orphanRemoval=true)
      */
     private $models;
 

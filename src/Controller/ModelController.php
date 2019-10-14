@@ -29,16 +29,17 @@ class ModelController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="model_new", methods={"GET","POST"})
+     * @Route("/new/{slug}", name="model_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Manufacturer $manufacturer = null, ManufacturerRepository $manufacturerRepository): Response
+    public function new(Request $request, Manufacturer $manufacturer, ManufacturerRepository $manufacturerRepository): Response
     {
         $model = new Model();
 
         $manufacturers = $manufacturerRepository->findByAllSortedByName();
 
         $form = $this->createForm(ModelType::class, $model, [
-            'manufacturers' => $manufacturers
+            'manufacturers' => $manufacturers,
+            'manufacturer' => $manufacturer
         ]);
         $form->handleRequest($request);
 
@@ -58,10 +59,12 @@ class ModelController extends AbstractController
             $entityManager->persist($model);
             $entityManager->flush();
 
-            return $this->redirectToRoute('model_show', ['slug' => $model->getSlug()]);
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $manufacturer->getSlug()]);
         }
 
         return $this->render('model/new.html.twig', [
+            'manufacturer' => $manufacturer,
+
             'model' => $model,
             'form' => $form->createView(),
         ]);
@@ -80,12 +83,17 @@ class ModelController extends AbstractController
     /**
      * @Route("/{slug}/edit", name="model_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Model $model, Manufacturer $manufacturer = null, ManufacturerRepository $manufacturerRepository): Response
+    public function edit(Request $request, Model $model, ManufacturerRepository $manufacturerRepository): Response
     {
         $manufacturers = $manufacturerRepository->findByAllSortedByName();
 
-        $form = $this->createForm(ModelType::class, $model, ['manufacturers' => $manufacturers]);
+        $form = $this->createForm(ModelType::class, $model, [
+            'manufacturers' => $manufacturers,
+            'manufacturer' => $model->getManufacturer()
+        ]);
         $form->handleRequest($request);
+
+        $manufacturers = $manufacturerRepository->findByAllSortedByName();
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,7 +111,7 @@ class ModelController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             // return $this->redirectToRoute('model_index');
-            return $this->redirectToRoute('model_show', ['slug' => $model->getSlug()]);
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $model->getManufacturer()->getSlug()]);
         }
 
         return $this->render('model/edit.html.twig', [
@@ -123,6 +131,6 @@ class ModelController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('model_index');
+        return $this->redirectToRoute('manufacturer_show', ['slug' => $model->getManufacturer()->getSlug()]);
     }
 }

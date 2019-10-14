@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\FileUploader;
 
@@ -48,7 +46,7 @@ class ManufacturerController extends AbstractController
 
             if ($logo) {
                 $fileUploader = new FileUploader('uploads/logos/manufacturers');
-                $logoName = $fileUploader->upload($logo);
+                $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
                 $manufacturer->setlogo($logoName);
             }
 
@@ -58,7 +56,7 @@ class ManufacturerController extends AbstractController
             $entityManager->persist($manufacturer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('manufacturer_index');
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $manufacturer->getslug()]);
         }
 
         return $this->render('manufacturer/new.html.twig', [
@@ -96,13 +94,13 @@ class ManufacturerController extends AbstractController
                 if ($filesystem->exists('uploads/logos/manufacturers/' . $manufacturer->getLogo())) {
                     $filesystem->remove(['symlink', 'uploads/logos/manufacturers/' . $manufacturer->getLogo(), 'activity.log']);
                 }
-                $logoName = $fileUploader->upload($logo);
+                $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
                 $manufacturer->setlogo($logoName);
             }
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_manufacturers');
+            return $this->redirectToRoute('manufacturer_show', ['slug' => $manufacturer->getslug()]);
         }
 
         return $this->render('manufacturer/edit.html.twig', [

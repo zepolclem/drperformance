@@ -13,12 +13,15 @@ class ModelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('resume')
+            ->add('name', null, [
+                'label' => 'Nom'
+            ])
+            // ->add('resume')
             ->add('manufacturer', null, [
+                'label' => 'Constructeur',
                 'choice_label' => 'name',
                 'choices' => $options['manufacturers'],
-                'data' => $options['manufacturers'][0]
+                'data' => $options['manufacturer']
             ]);
     }
 
@@ -27,6 +30,7 @@ class ModelType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Model::class,
             'manufacturers' => [],
+            'manufacturer' => []
         ]);
     }
 }

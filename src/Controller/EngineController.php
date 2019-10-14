@@ -32,6 +32,7 @@ class EngineController extends AbstractController
     public function new(Request $request, Generation $generation): Response
     {
         $engine = new Engine();
+        $engine->setGeneration($generation);
         $form = $this->createForm(EngineType::class, $engine);
         $form->handleRequest($request);
 
@@ -48,6 +49,7 @@ class EngineController extends AbstractController
 
         return $this->render('engine/new.html.twig', [
             'engine' => $engine,
+            'generation' => $engine->getGeneration(),
             'form' => $form->createView(),
         ]);
     }
@@ -80,11 +82,12 @@ class EngineController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('manufacturer_show', ['slug' => $engine->getGeneration()->getModel()->getManufacturer()->getSlug()]);
+            return $this->redirectToRoute('engine_show', ['slug' => $engine->getSlug()]);
         }
 
         return $this->render('engine/edit.html.twig', [
             'engine' => $engine,
+            'generation' => $engine->getGeneration(),
             'form' => $form->createView(),
         ]);
     }
