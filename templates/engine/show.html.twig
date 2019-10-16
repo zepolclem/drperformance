@@ -56,37 +56,41 @@
             </ol>
         </nav>
 
-        <div class="jumbotron">
-            <h1 class="display-4">{{model.name}}</h1>
-            <h2>
-                {{generation.startYear}}
-                {% if generation.endYear %}
-                    <i class="fi-xnlrxl-chevron"></i>
-                    {{generation.endYear}}
-                {% endif %}
-            </h2>
-            <h3>
-                {{engine.name}}
-                {{engine.power}}
-                ch
+        <div class="jumbotron text-light bannerGeneration" style="background-image: url(/uploads/pictures/generations/{{generation.picture}}); ">
 
-            </h3>
-            <hr class="my-4">
-            <p class="lead">
-                {% if engine.turbo %}
-                    Turbo
-                {% endif %}
-                {% if engine.torque %}
-                    |
-                    {{engine.torque}}
-                    Nm
-                {% endif %}
-                {% if engine.cylinderCapacity %}
-                    |
-                    {{engine.cylinderCapacity}}
-                    cm3
-                {% endif %}
-            </p>
+            <div class="">
+                <h1 class="display-4">{{model.name}}</h1>
+                <h2>
+                    {{generation.startYear}}
+                    {% if generation.endYear %}
+                        <i class="fi-xnlrxl-chevron"></i>
+                        {{generation.endYear}}
+                    {% endif %}
+                </h2>
+                <h3>
+                    {{engine.name}}
+                    {{engine.power}}
+                    ch
+
+                </h3>
+                <hr class="my-4">
+                <p class="lead">
+                    {% if engine.turbo %}
+                        Turbo
+                    {% endif %}
+                    {% if engine.torque %}
+                        |
+                        {{engine.torque}}
+                        Nm
+                    {% endif %}
+                    {% if engine.cylinderCapacity %}
+                        |
+                        {{engine.cylinderCapacity}}
+                        cm3
+                    {% endif %}
+                </p>
+
+            </div>
         </div>
     </div>
 

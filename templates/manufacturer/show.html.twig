@@ -12,9 +12,10 @@
             <img class="img-fluid mx-auto d-block" width="250px;" src="/uploads/logos/manufacturers/{{manufacturer.logo}}" alt="">
         </div>
 
-        <div class="col-12">
-            <h1 class="ml-5">{{manufacturer.name}}</h1>
-            <nav class="nav">
+        <div class="col-12 text-center">
+            <h1>{{manufacturer.name}}</h1>
+            <nav class="nav justify-content-center">
+
                 <a class="nav-link" href="{{ path('manufacturer_edit', {'slug': manufacturer.slug}) }}">
                     <i class="fi-xnsuxl-edit-solid"></i>
                     Éditer constructeur</a>
@@ -26,16 +27,20 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('manufacturer_index')}}">
+                <i class="fi-xwllxl-arrow-simple-wide"></i>
+                Retour à la liste des constructeurs
+            </a>
+
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col">
             <p>{{manufacturer.resume}}</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <h2 class="ml-5">Modèles</h2>
         </div>
     </div>
 

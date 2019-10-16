@@ -16,3 +16,9 @@ h1, h2, h3, h4, h5, h6 {
 .image-item img {
     object-fit: cover;
 }
+
+.bannerGeneration {
+    filter: grayscale(100%);
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+}
