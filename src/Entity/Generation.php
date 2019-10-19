@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GenerationRepository")
@@ -62,7 +63,21 @@ class Generation
      */
     private $picture;
 
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
 
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
 
 
@@ -197,6 +212,30 @@ class Generation
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?DateTime $date): self
+    {
+        $this->created = $date;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $date): self
+    {
+        $this->updated = $date;
 
         return $this;
     }

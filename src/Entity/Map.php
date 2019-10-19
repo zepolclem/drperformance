@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MapRepository")
@@ -46,6 +48,24 @@ class Map
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
 
     public function getId(): ?int
     {
@@ -120,6 +140,30 @@ class Map
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?DateTime $date): self
+    {
+        $this->created = $date;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $date): self
+    {
+        $this->updated = $date;
 
         return $this;
     }

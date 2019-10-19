@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Cocur\Slugify\Slugify;
 
 /**
@@ -44,6 +45,23 @@ class Manufacturer
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     public function __construct()
     {
@@ -133,6 +151,30 @@ class Manufacturer
     {
         $slug = new Slugify();
         $this->slug  =  $slug->slugify($name);
+        return $this;
+    }
+
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?DateTime $date): self
+    {
+        $this->created = $date;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $date): self
+    {
+        $this->updated = $date;
+
         return $this;
     }
 }

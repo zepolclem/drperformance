@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use DateTime;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Cocur\Slugify\Slugify;
 
 
@@ -49,6 +50,22 @@ class Model
      * @ORM\OneToMany(targetEntity="App\Entity\Generation", mappedBy="model", orphanRemoval=true)
      */
     private $generations;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     public function __construct()
     {
@@ -135,6 +152,30 @@ class Model
                 $generation->setModel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?DateTime $date): self
+    {
+        $this->created = $date;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $date): self
+    {
+        $this->updated = $date;
 
         return $this;
     }

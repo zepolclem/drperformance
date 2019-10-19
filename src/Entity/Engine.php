@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Gedmo\Mapping\Annotation as Gedmo;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EngineRepository")
@@ -64,6 +66,22 @@ class Engine
      * @ORM\OneToMany(targetEntity="App\Entity\Map", mappedBy="engine", orphanRemoval=true)
      */
     private $maps;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     public function __construct()
     {
@@ -198,6 +216,30 @@ class Engine
                 $map->setEngine(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?DateTime
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?DateTime $date): self
+    {
+        $this->created = $date;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(?DateTime $date): self
+    {
+        $this->updated = $date;
 
         return $this;
     }
