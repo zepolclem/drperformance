@@ -55,6 +55,8 @@ class GenerationController extends AbstractController
             $filesystem = new Filesystem;
 
             $generation->setSlug($model->getManufacturer()->getName() . ' ' . $model->getName() . ' ' . $generation->getName() . ' ' . $generation->getStartYear() . ' ' . $generation->getEndYear());
+            $generation->setCreated(date_create());
+            $generation->setUpdated(date_create());
 
             if ($picture) {
                 $fileUploader = new FileUploader($directory);
@@ -126,7 +128,7 @@ class GenerationController extends AbstractController
                     $filesystem->rename($directory . $oldPictureName, $directory . $generation->getPicture());
                 }
             }
-
+            $generation->setUpdated(date_create());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('manufacturer_show', ['slug' => $generation->getModel()->getManufacturer()->getSlug()]);

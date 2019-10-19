@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "cocur/slugify": {
         "version": "v3.2"
     },
@@ -125,6 +128,9 @@
         "files": [
             "src/DBAL/Types/.gitignore"
         ]
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.37"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"

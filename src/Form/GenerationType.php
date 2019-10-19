@@ -15,7 +15,8 @@ class GenerationType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'help' => 'Ex : Golf 7 - Phase 2'
             ])
             ->add('startYear', Null, [
                 'label' => 'De',
@@ -27,7 +28,7 @@ class GenerationType extends AbstractType
                 'label' => 'à',
                 // 'data' => '1984',
                 'required' => false,
-                'help' => "L'année de fin de production.",
+                'help' => "L'année de fin de production. Si connue",
             ])
 
             ->add('picture',  FileType::class, [

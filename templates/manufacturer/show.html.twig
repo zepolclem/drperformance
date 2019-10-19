@@ -6,6 +6,16 @@
 
 {% block body %}
 
+    <div class="row">
+        <div class="col">
+            <a href="{{ path('manufacturer_index')}}">
+                <i class="fi-xwllxl-arrow-simple-wide"></i>
+                Retour à la liste des constructeurs
+            </a>
+
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-12">
@@ -14,7 +24,7 @@
 
         <div class="col-12 text-center">
             <h1>{{manufacturer.name}}</h1>
-            <nav class="nav justify-content-center">
+            <nav class="nav justify-content-center pb-5">
 
                 <a class="nav-link" href="{{ path('manufacturer_edit', {'slug': manufacturer.slug}) }}">
                     <i class="fi-xnsuxl-edit-solid"></i>
@@ -23,16 +33,6 @@
                     <i class="fi-xnsuxl-plus-solid"></i>
                     Ajouter modèle</a>
             </nav>
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <a href="{{ path('manufacturer_index')}}">
-                <i class="fi-xwllxl-arrow-simple-wide"></i>
-                Retour à la liste des constructeurs
-            </a>
 
         </div>
     </div>
@@ -48,7 +48,7 @@
     <div class="row">
         {% for model in manufacturer.models %}
             <div class="col-md-6 mb-4">
-                <div class="card">
+                <div class="card bg-dark">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
@@ -78,7 +78,7 @@
                                             <img src="/uploads/pictures/generations/{{generation.picture}}" width="400" height="300" alt="" class="card-img-top">
 
                                         </div>
-                                        <div class="card-header">
+                                        <div class="card-header text-dark">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     {% if generation.name %}

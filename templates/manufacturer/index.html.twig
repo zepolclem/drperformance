@@ -6,7 +6,7 @@
 {% block body %}
     <div class="row">
 
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h2>Constructeurs</h2>
 
         </div>
@@ -19,7 +19,7 @@
                     <div class="card-text">
                         <i class="fi-xwsux4-plus-solid"></i>
                     </div>
-                    <div class="card-text ">
+                    <div class="card-text">
                         Ajouter un constructeur
                     </div>
                 </a>
@@ -28,12 +28,11 @@
 
         {% for manufacturer in manufacturers|sortbyfield('name') %}
             <div class="col-6 col-md-2">
-                <a href="{{path('manufacturer_show', {'slug': manufacturer.slug})}}" class="card my-3 border-0 text-center" title={{manufacturer.name}}>
+                <a href="{{path('manufacturer_show', {'slug': manufacturer.slug})}}" class=" my-3 border-0 text-center" title={{manufacturer.name}}>
                     <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" class="img-fluid" alt="...">
                 </a>
             </div>
         {% endfor %}
-
     </div>
 
 {% endblock %}

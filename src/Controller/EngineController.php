@@ -40,6 +40,8 @@ class EngineController extends AbstractController
 
             $engine->setGeneration($generation);
             $engine->setSlug($engine->getGeneration()->getModel()->getManufacturer()->getName() . ' ' . $engine->getGeneration()->getModel()->getName() . ' ' . $engine->getGeneration()->getName() . ' ' . $engine->getGeneration()->getStartYear() . ' ' . $engine->getGeneration()->getEndYear() . ' ' . $engine->getName() . ' ' . $engine->getPower());
+            $engine->setCreated(date_create());
+            $engine->setUpdated(date_create());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($engine);
             $entityManager->flush();
@@ -79,7 +81,7 @@ class EngineController extends AbstractController
 
 
             $engine->setSlug($engine->getGeneration()->getModel()->getManufacturer()->getName() . ' ' . $engine->getGeneration()->getModel()->getName() . ' ' . $engine->getGeneration()->getName() . ' ' . $engine->getGeneration()->getStartYear() . ' ' . $engine->getGeneration()->getEndYear() . ' ' . $engine->getName() . ' ' . $engine->getPower());
-
+            $engine->setUpdated(date_create());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('engine_show', ['slug' => $engine->getSlug()]);

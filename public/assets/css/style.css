@@ -22,3 +22,29 @@ h1, h2, h3, h4, h5, h6 {
     background-size: cover;
     /* Resize the background image to cover the entire container */
 }
+
+.carousel-item {
+    height: 50vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* 
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+} */
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    /* height: 50%; */
+    width: 100%;
+    position: absolute;
+}

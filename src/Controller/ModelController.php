@@ -52,7 +52,8 @@ class ModelController extends AbstractController
             //     $logoName = $fileUploader->upload($logo);
             //     $manufacturer->setlogo($logoName);
             // }
-
+            $model->setCreated(date_create());
+            $model->setUpdated(date_create());
             $model->setSlug($model->getManufacturer()->getName() . ' ' . $model->getName());
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -107,7 +108,7 @@ class ModelController extends AbstractController
             // }
 
             $model->setSlug($model->getManufacturer()->getName() . ' ' . $model->getName());
-
+            $model->setUpdated(date_create());
             $this->getDoctrine()->getManager()->flush();
 
             // return $this->redirectToRoute('model_index');

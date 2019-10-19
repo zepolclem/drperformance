@@ -39,6 +39,8 @@ class MapController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $map->setEngine($engine);
+            $map->setCreated(date_create());
+            $map->setUpdated(date_create());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($map);
             $entityManager->flush();
@@ -77,6 +79,8 @@ class MapController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $map->setUpdated(date_create());
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('engine_show', ['slug' => $engine->getslug()]);

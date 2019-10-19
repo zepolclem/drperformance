@@ -51,6 +51,8 @@ class ManufacturerController extends AbstractController
             }
 
             $manufacturer->setSlug($manufacturer->getName());
+            $manufacturer->setCreated(date_create());
+            $manufacturer->setUpdated(date_create());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
@@ -97,7 +99,7 @@ class ManufacturerController extends AbstractController
                 $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
                 $manufacturer->setlogo($logoName);
             }
-
+            $manufacturer->setUpdated(date_create());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('manufacturer_show', ['slug' => $manufacturer->getslug()]);
