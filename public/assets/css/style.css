@@ -66,3 +66,21 @@ h1, h2, h3, h4, h5, h6 {
 .text-border-light {
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
+
+@media (max-width: 767px) {
+    .logo_navbar {
+        max-height: 60px;
+    }
+}
+
+/* @media (min-width: 768px) {
+    .logo_navbar {
+        max-height: 80px;
+    }
+    a.nav-link {
+        background-color: black, 0.8;
+        font-size: 25px;
+        font-weight: 500;
+        font-variant: small-caps;
+    }
+} */
