@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    Nouveau constructeur
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <a href="{{ path('manufacturer_index') }}">
+            <i class="fi-xwllxl-arrow-simple-wide"></i>
+            Retour
+        </a>
+
+
+        <div class="row py-5">
+            <div class="col">
+                <h1>Créer un nouveau constructeur</h1>
+                {{ include('manufacturer/_form.html.twig') }}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

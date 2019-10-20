@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{manufacturer.name}}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid pt-5">
+        <div class="row pt-5">
+            <div class="col">
+                <a href="{{ path('manufacturer_index')}}">
+                    <i class="fi-xwllxl-arrow-simple-wide"></i>
+                    Retour à la liste des constructeurs
+                </a>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <img class="img-fluid mx-auto d-block" width="250px;" src="/uploads/logos/manufacturers/{{manufacturer.logo}}" alt="">
+            </div>
+
+            <div class="col-12 text-center">
+                <h1>{{manufacturer.name}}</h1>
+                <nav class="nav justify-content-center pb-5">
+
+                    <a class="nav-link" href="{{ path('manufacturer_edit', {'slug': manufacturer.slug}) }}">
+                        <i class="fi-xnsuxl-edit-solid"></i>
+                        Éditer constructeur</a>
+                    <a class="nav-link" href="{{ path('model_new', {'slug': manufacturer.slug}) }}">
+                        <i class="fi-xnsuxl-plus-solid"></i>
+                        Ajouter modèle</a>
+                </nav>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <p>{{manufacturer.resume}}</p>
+            </div>
+        </div>
+
+
+        <div class="row align-items-center">
+
+            {% for model in manufacturer.models %}
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-dark">
+                        <div class="card-header">
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <h5 class="card-title font-weight-bold">{{model.name}}</h2>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <div class="btn-group">
+                                        <a class="card-link" href="{{path('model_edit', {'slug':model.slug})}}">
+                                            <i class="fi-xnsuxl-edit-solid"></i>
+                                            Editer le modèle</a>
+                                        <a class="card-link" href="{{path('generation_new', {'slug':model.slug})}}">
+                                            <i class="fi-swluxl-plus-solid"></i>
+                                            Nouvelle génération</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">{{model.resume}}</div>
+                            <div class="row align-items-center">
+
+                                {% for generation in model.generations|sortbyfield('startYear') %}
+                                    <div class="col-md-6 mb-3">
+
+
+                                        <div class="card  h-100 ">
+                                            <div class="image-item">
+                                                <img src="/uploads/pictures/generations/{{generation.picture}}" width="400" height="300" alt="" class="card-img-top">
+
+                                            </div>
+                                            <div class="card-header text-dark">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        {% if generation.name %}
+                                                            <h6>{{generation.name}}</h6>
+                                                        {% endif %}
+                                                        {{generation.startYear}}
+                                                        {% if generation.endYear %}
+                                                            <i class="fi-xnlrxl-chevron"></i>
+                                                            {{generation.endYear}}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <div class="btn-group small">
+                                                            <a class="card-link" href="{{path('generation_edit', {'slug':generation.slug})}}" title="Editer la génération">
+                                                                <i class="fi-xnsuxl-edit-solid"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-text">
+                                                    {% for engine in generation.engines|sortbyfield('name') %}
+                                                        <a href="{{path('engine_show', {'slug':engine.slug})}}">
+                                                            {{engine.name}}
+                                                            {% if engine.power %}
+                                                                -
+                                                                {{engine.power}}
+                                                                ch
+                                                            {% endif %}
+                                                        </a>
+                                                    {% else %}
+                                                        <small class="text-dark">Pas de motorisation</small>
+                                                    {% endfor %}
+                                                    <br>
+                                                    <a class="card-link small" href="{{path('engine_new', {'slug':generation.slug})}}">Ajouter motorisation</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            Aucune génération de
+                                            {{model.name}}.
+                                            <br>
+                                            <a class="card-link" href="{{path('generation_new', {'slug':model.slug})}}">
+                                                En ajouter une !</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="text-center">
+                                        <a href="{{path('manufacturer_new')}}" class="card-body">
+                                            <div class="card-text">
+                                                <i class="fi-xwsux4-plus-solid"></i>
+                                            </div>
+                                            <div class="card-text">
+                                                Ajouter un une génération
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col text-center">
+                    Pas de modèle
+                </div>
+            {% endfor %}
+
+
+            <div class="col-md-6 mb-4">
+                <div class="text-center">
+                    <a href="{{path('model_new', {'slug':manufacturer.slug})}}" class="card-body">
+                        <div class="card-text">
+                            <i class="fi-xwsux4-plus-solid"></i>
+                        </div>
+                        <div class="card-text">
+                            Ajouter un modèle
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

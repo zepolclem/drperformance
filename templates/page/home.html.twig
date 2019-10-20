@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La solution pour votre auto !
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="/assets/img/logos/logo.png" alt="" class="img-fluid">
+            </div>
+        </div>
+
+        <div class="row pt-5 text-center" id="services">
+            <div class="col-12 col-lg-4">
+                <h2>Diagnostique</h2>
+                <div class="py-3">
+                    <i class="fas fa-3x fa-search text-primary"></i>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <h2>Reprogrammation</h2>
+                <div class="py-3">
+                    <i class="fas fa-3x fa-microchip text-success"></i>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <h2>Performance</h2>
+                <div class="py-3">
+                    <i class="fas fa-3x fa-tachometer-alt text-danger"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col-12 mx-auto">
+                <p>
+                    Bievenue sur mon site internet ! Je suis Christian "KIKI" Carrey, ma société "DRPerformance" est spécialisée dans la reprogrammation de la cartographie des calculateurs de véhicules (ECU), dans la détection de panne par diagnostic partiel ou complet ainsi que dans la suppression de codes erreur, pour tout type de véhicule, marque et modèle.
+                </p>
+                <p>
+                    Mon entreprise est située dans les Landes, dans une petite zone artisanale dans le village d'Angresse, à proximité de Capbreton et Hossegor.
+                </p>
+                <p>
+                    Les marques Allemandes n'ont aucun secret pour moi mais je suis tout autant performant sur les autres marques, prestigieuses ou non. Optimiser votre Honda Civic Type R ou bien votre Peugeot 208 ne sera pas un problème.
+                </p>
+            </div>
+        </div>
+
+        <div class="row pt-5">
+            <div class="col-md-7 align-self-center">
+                <h2 class="featurette-heading">
+                    Optimisez votre moteur.
+                    <br/>
+                    <span class="text-muted">Consommez moins.</span>
+                </h2>
+                <p>
+                    La reprogrammation de votre ECU permet d'optimiser sa cartographie afin d'obtenir un gain en puissance, couple et consommation. Il est possible de faire dans les deux sens. On "upgrade" lorsque l'on applique une cartographie autre que celle par défaut, on "downgrade" lorsque l'on remet celle d'origine.
+                </p>
+                <p class="lead">
+                    Gain de puissance et de couple.
+                    <br/>
+                    Consommation réduite.
+                </p>
+            </div>
+            <div class="col-md-5 align-self-center">
+                <img src="/assets/img/benz.jpg" class="img-fluid" alt="Responsive image"/>
+            </div>
+            <div class="col-12">
+                <p>
+                    Je peux également m'occuper de cloner un calculateur moteur (lors d'un ECU à changer par exemple), proposer des solutions pour le FAP, l'EGR, l'Addblue ou encore le NOX², supprimer les codes "défauts", faire un reset du crash airbag, adapter le codage du calculateur, mettre à jour le code en ligne usine.
+                </p>
+            </div>
+        </div>
+
+        <div class="row featurette pt-5">
+            <div class="col-md-7 order-md-2 align-self-center">
+                <h2 class="featurette-heading">
+                    Expérience.<br/>
+                    <span class="text-muted">Un savoir-faire reconnu.</span>
+                </h2>
+                <p>
+                    Plusieurs années d'expérience en mécanique et en diagnostic/reprogrammation des ECU. Je dispose de tout le matériel nécessaire afin de répondre aux différentes demandes que ce soit une détection de panne ou bien une optimisation de la cartographie du véhicule, quels que soient le type de véhicule ainsi que la marque et le modèle, dans la mesure du possible.
+                </p>
+                <p>
+                    La remise à zéro de code erreur permet de finaliser des réparations. Un code ne va pas forcément disparaitre de lui-même après réparation et peut potentiellement poser problème pendant un contrôle technique. En plus du diagnostic, je peux également effectuer les réparations en conséquence.
+                </p>
+                <p>
+                    Je propose également des services d'entretien courant (révision, vidange, pneumatique, freins, etc.).
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1 align-self-center">
+                <img src="/assets/img/amg.jpg" class="img-fluid" alt="Responsive image"/>
+            </div>
+        </div>
+
+        <div class="row featurette pt-5" id="prestations">
+            <div class="col-md-7  align-self-center">
+                <h2 class="featurette-heading">
+                    Prestations.
+                    <br/>
+                    <span class="text-muted">Des tarifs abordables.</span>
+                </h2>
+                <p>
+                    Quelle que soit la demande, mes tarifs sont abordables et mon savoir-faire ainsi que ma rigueur sont reconnus par les concessions et professionnels auto environnants mais également par les professionnels dépendant d'un ou plusieurs véhicules (tels que les artisans) et par un grand nombre de particuliers.
+                </p>
+            </div>
+            <div class="col-md-5  align-self-center">
+                <img src="/assets/img/r8.jpg" class="img-fluid" alt="Responsive image"/>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-12  col-lg-6">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped  align-self-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <span class="text-success">Prestations</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="">Prix TTC</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Mécanique</th>
+                                <td>66 €</td>
+                            </tr>
+                            <tr>
+                                <th>Mécanique Utilitaire</th>
+                                <td>78 €</td>
+                            </tr>
+                            <tr>
+                                <th>Diagnostique simple</th>
+                                <td>60 €</td>
+                            </tr>
+                            <tr>
+                                <th>Diagnostique approfondi</th>
+                                <td>84 €</td>
+                            </tr>
+                            <tr>
+                                <th>Diagnostique Code</th>
+                                <td>108 €</td>
+                            </tr>
+                            <tr>
+                                <th>Soudure composant électronique</th>
+                                <td>96 €</td>
+                            </tr>
+                            <tr>
+                                <th>Forfait déplacement supérieur à 20 Km</th>
+                                <td>66 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12  col-lg-6 align-self-center">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped ">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <span class="text-success">Reprogrammations</span>
+                                </th>
+                                <th scope="col">
+                                    <span class="">Prix TTC
+                                        <small>( à partir de )</small>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Reprog. voiture</th>
+                                <td>390 €</td>
+                            </tr>
+                            <tr>
+                                <th>Reprog. utilitaire</th>
+                                <td>450 €</td>
+                            </tr>
+                            <tr>
+                                <th>Reprog. supercar</th>
+                                <td>620 €</td>
+                            </tr>
+                            <tr>
+                                <th>Reprog. jet-ski / moto</th>
+                                <td>320 €</td>
+                            </tr>
+                            <tr>
+                                <th>Reprog. poids-lourd / tracteurs</th>
+                                <td>680 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

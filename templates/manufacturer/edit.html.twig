@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Éditer constructeur –
+    {{manufacturer.name}}
+{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <a href="{{ path('manufacturer_index') }}">
+            <i class="fi-xwllxl-arrow-simple-wide"></i>
+            Retour
+        </a>
+
+        <div class="row py-5">
+            <div class="col">
+                <h1>Éditer
+                    {{manufacturer.name}}</h1>
+                {{ include('manufacturer/_form.html.twig', {'button_label': 'Update'}) }}
+                <br>
+                {{ include('manufacturer/_delete_form.html.twig') }}
+            </div>
+        </div>
+
+    {% endblock %}

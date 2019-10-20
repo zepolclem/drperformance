@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Engine index{% endblock %}
+
+{% block body %}
+    <h1>Engine index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Power</th>
+                <th>Torque</th>
+                <th>Energy</th>
+                <th>CylinderCapacity</th>
+                <th>Turbo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for engine in engines %}
+            <tr>
+                <td>{{ engine.id }}</td>
+                <td>{{ engine.power }}</td>
+                <td>{{ engine.torque }}</td>
+                <td>{{ engine.energy }}</td>
+                <td>{{ engine.cylinderCapacity }}</td>
+                <td>{{ engine.turbo ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('engine_show', {'id': engine.id}) }}">show</a>
+                    <a href="{{ path('engine_edit', {'id': engine.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('engine_new') }}">Create new</a>
+{% endblock %}

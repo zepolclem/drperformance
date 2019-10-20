@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Engine
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-5 ">
+
+
+        <div class="pt-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb text-dark">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('select_engine', {'slug' : generation.slug})}}">
+                            <i class="fi-xwllxl-arrow-simple-wide"></i>
+                            Retour
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_engine', {'slug' : generation.slug})}}">
+                            {{generation.name}}
+                            |
+                            {{generation.startYear}}
+                            <i class="fi-xnlrxl-chevron"></i>
+                            {{generation.endYear}}
+
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item font-weight-bold">
+                        {{engine.name}}
+                    </li>
+                </ol>
+            </nav>
+
+        </div>
+
+        <div class="jumbotron text-light text-border-dark bannerGeneration" style="background-image: url(/uploads/pictures/generations/{{generation.picture}}); ">
+
+            <h1 class="display-4 font-weight-bold">{{model.name}}</h1>
+            <h2>
+                {{generation.startYear}}
+                {% if generation.endYear %}
+                    <i class="fi-xnlrxl-chevron"></i>
+                    {{generation.endYear}}
+                {% endif %}
+            </h2>
+            <h3>
+                {{engine.name}}
+                <br>
+                {{engine.power}}
+                ch
+            </h3>
+            <br>
+            <p class="lead">
+                {% if engine.turbo %}
+                    Turbo
+                {% endif %}
+                {% if engine.torque %}
+                    |
+                    {{engine.torque}}
+                    Nm
+                {% endif %}
+                {% if engine.cylinderCapacity %}
+                    |
+                    {{engine.cylinderCapacity}}
+                    cm3
+                {% endif %}
+            </p>
+
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        {% for map in engine.maps %}
+                            <a class="nav-item nav-link {% if loop.first %}active{% endif %}" id="nav-{{map.id}}-tab" data-toggle="tab" href="#nav-{{map.id}}" role="tab" aria-controls="nav-{{map.id}}" aria-selected="{% if loop.first %}active {% else %} false {% endif %}">
+
+
+                                {{map.name}}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    {% for map in engine.maps %}
+                        <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="nav-{{map.id}}" role="tabpanel" aria-labelledby="nav-{{map.id}}-tab">
+                            <div class="pt-5">
+                                <div class="table-responsive">
+                                    <table class="table table-dark table-bordered text-right">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{map.name}}</th>
+                                                <th scope="col">Origine</th>
+                                                <th scope="col">Reprogrammation</th>
+                                                <th scope="col">Gain</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Puissance</th>
+                                                <td>
+                                                    {{engine.power}}
+                                                    ch
+                                                </td>
+                                                <td>
+                                                    {{map.power}}
+                                                    ch
+                                                </td>
+                                                <td>
+                                                    +
+                                                    {{map.power - engine.power}}
+                                                    ch
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Couple</th>
+                                                <td>
+                                                    {{engine.torque}}
+                                                    Nm
+                                                </td>
+                                                <td>
+                                                    {{map.torque}}
+                                                    Nm
+                                                </td>
+                                                <td>
+                                                    +
+                                                    {{map.torque - engine.torque}}
+                                                    Nm
+                                                </td>
+                                            </tr>
+                                            {% if map.price %}
+                                                <tr>
+                                                    <th scope="row" colspan="3">Prix TVA inclus :</th>
+                                                    <td>
+                                                        {{map.price}}
+                                                        €
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <th scope="row" colspan="4">Prix sur demande</th>
+                                                </tr>
+
+                                            {% endif %}
+                                            {% if map.resume %}
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div class="col text-left">
+                                                            <p>{{map.resume|raw}}</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

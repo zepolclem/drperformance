@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}
+    Reprogrammations ECU
+{% endblock %}
+
+{% block body %}
+
+    <div class="container text-dark">
+
+
+        <div class="row">
+
+            <div class="col-12 col-md-3">
+                <ul class="list-group">
+                    {% for manufacturer in manufacturers %}
+                        <li class="list-group-item {% if manufacturerActive is defined and manufacturerActive == manufacturer  %} bg-dark border {% endif %}">
+                            <a href="/reprogrammations/manufacturer/{{manufacturer.slug}}">{{manufacturer.name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-12 col-md-3">
+                {% if manufacturerActive is defined %}
+                    <ul class="list-group">
+                        {% for model in manufacturerActive.models %}
+                            <li class="list-group-item {% if modelActive is defined and  modelActive == model %} bg-dark border {% endif %}">
+                                <a href="/reprogrammations/model/{{model.slug}}">{{model.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="col-12 col-md-3">
+                {% if modelActive is defined %}
+                    <ul class="list-group">
+                        {% for generation in modelActive.generations %}
+                            <li class="list-group-item {% if generationActive is defined and generationActive == generation  %} bg-dark border {% endif %} ">
+                                <a href="/reprogrammations/generation/{{generation.slug}}">{{generation.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="col-12 col-md-3">
+                {% if generationActive is defined %}
+                    <ul class="list-group">
+                        {% for engine in generationActive.engines %}
+                            <li class="list-group-item">
+                                <a href="/reprogrammations/generation/{{engine.slug}}">{{engine.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock %}
