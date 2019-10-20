@@ -4,41 +4,41 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row py-3">
-            <div class="col">
-                <a href="{{ path('select_engine', {'slug' : generation.slug})}}">
-                    <i class="fi-xwllxl-arrow-simple-wide"></i>
-                    Retour
-                </a>
+    <div class="container pt-5 ">
 
-            </div>
+
+        <div class="pt-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb text-dark">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('select_engine', {'slug' : generation.slug})}}">
+                            <i class="fi-xwllxl-arrow-simple-wide"></i>
+                            Retour
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{path('select_engine', {'slug' : generation.slug})}}">
+                            {{generation.name}}
+                            |
+                            {{generation.startYear}}
+                            <i class="fi-xnlrxl-chevron"></i>
+                            {{generation.endYear}}
+
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item font-weight-bold">
+                        {{engine.name}}
+                    </li>
+                </ol>
+            </nav>
+
         </div>
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb text-dark">
-
-                <li class="breadcrumb-item">
-                    <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="{{path('select_engine', {'slug' : generation.slug})}}">
-                        {{generation.name}}
-                        |
-                        {{generation.startYear}}
-                        <i class="fi-xnlrxl-chevron"></i>
-                        {{generation.endYear}}
-
-                    </a>
-                </li>
-                <li class="breadcrumb-item font-weight-bold">
-                    {{engine.name}}
-                </li>
-            </ol>
-        </nav>
 
         <div class="jumbotron text-light text-border-dark bannerGeneration" style="background-image: url(/uploads/pictures/generations/{{generation.picture}}); ">
 
@@ -176,5 +176,4 @@
         </div>
 
     </div>
-
 {% endblock %}
