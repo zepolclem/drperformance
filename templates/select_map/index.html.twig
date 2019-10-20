@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SelectMapController!
+{% endblock %}
+
+{% block body %}
+    <div class="container text-dark">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <ul class="list-group">
+                    {% for manufacturer in manufacturers %}
+                        <li class="list-group-item {% if manufacturerSelected is defined and manufacturerSelected == manufacturer  %} bg-dark border {% endif %}">
+                            <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">
+                                <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" width="50px" class="img-fluid p-0 mr-3" alt="...">
+                                {{manufacturer.name}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-12 col-md-3">
+                {% if manufacturerSelected is defined %}
+                    <ul class="list-group">
+                        {% for model in manufacturerSelected.models %}
+                            <li class="list-group-item {% if modelSelected is defined and  modelSelected == model %} bg-dark border {% endif %}">
+                                <a href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-3">
+                {% if modelSelected is defined %}
+                    <ul class="list-group">
+                        {% for generation in modelSelected.generations %}
+                            <li class="list-group-item {% if generationSelected is defined and generationSelected == generation  %} bg-dark border {% endif %} ">
+                                <a href="{{path('select_engine', {'slug' : generation.slug})}}">
+                                    {{generation.name}}
+                                    –
+                                    {{generation.startYear}}
+                                    {% if generation.endYear %}
+                                        <i class="fi-xnlrxl-chevron"></i>
+                                        {{generation.endYear}}
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-12 col-md-3">
+                {% if generationSelected is defined %}
+                    <ul class="list-group">
+                        {% for engine in generationSelected.engines|sortbyfield('energy') %}
+                            <li class="list-group-item">
+                                <a href="{{ path('engine_selected_show', {'slug' : engine.slug})}}">{{engine.name}}
+                                    |
+                                    {{engine.power}}
+                                    ch
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

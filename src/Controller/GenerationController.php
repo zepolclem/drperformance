@@ -15,9 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Filesystem\Filesystem;
 use App\Service\FileUploader;
 use Symfony\Component\Validator\Constraints\File;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/generation")
+ * @IsGranted("ROLE_ADMIN")
  */
 class GenerationController extends AbstractController
 {

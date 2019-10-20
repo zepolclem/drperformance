@@ -66,6 +66,11 @@ class Map
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
 
     public function getId(): ?int
     {
@@ -165,6 +170,18 @@ class Map
     {
         $this->updated = $date;
 
+        return $this;
+    }
+
+    public function getslug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setslug(string $stringToslugify): self
+    {
+        $slug = new slugify();
+        $this->slug  =  $slug->slugify($stringToslugify);
         return $this;
     }
 }

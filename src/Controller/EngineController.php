@@ -10,9 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/engine")
+ * @IsGranted("ROLE_ADMIN")
  */
 class EngineController extends AbstractController
 {
@@ -46,7 +48,8 @@ class EngineController extends AbstractController
             $entityManager->persist($engine);
             $entityManager->flush();
 
-            return $this->redirectToRoute('manufacturer_show', ['slug' => $generation->getModel()->getManufacturer()->getSlug()]);
+            // return $this->redirectToRoute('manufacturer_show', ['slug' => $generation->getModel()->getManufacturer()->getSlug()]);
+            return $this->redirectToRoute('engine_show', ['slug' => $engine->getslug()]);
         }
 
         return $this->render('engine/new.html.twig', [

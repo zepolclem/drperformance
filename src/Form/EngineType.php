@@ -14,11 +14,11 @@ class EngineType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom',
-                'help' => 'Ex : TDi, GTi'
+                'help' => 'Ex : 1.9 TDi'
             ])
             ->add('power', null, [
                 'label' => 'Puissance',
-                'help' => 'En en ch'
+                'help' => 'En ch'
             ])
             ->add('torque', null, [
                 'label' => 'Couple',

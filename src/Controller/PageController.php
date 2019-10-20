@@ -25,19 +25,4 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
         ]);
     }
-
-
-    /**
-     * @Route("/reprogrammations", name="reprogrammations")
-     */
-    public function reprogrammations(ManufacturerRepository $manufacturerRepository, ModelRepository $modelRepository, GenerationRepository $generationRepository)
-    {
-
-        $manufacturers =  $manufacturerRepository->findByAllSortedByName();
-
-        return $this->render('page/reprogrammations.html.twig', [
-            'controller_name' => 'PageController',
-            'manufacturers' => $manufacturers
-        ]);
-    }
 }
