@@ -22,7 +22,7 @@ class FileUploader
         $fileName = $name . '_' . uniqid()  . '.' . $file->guessExtension();
 
         try {
-            $file->move('./' . $this->getTargetDirectory(), $fileName);
+            $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
             dump($e);
             die;
