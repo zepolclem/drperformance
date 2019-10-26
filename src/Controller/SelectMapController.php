@@ -47,7 +47,9 @@ class SelectMapController extends AbstractController
 
         return $this->render('select_map/index.html.twig', [
             'controller_name' => 'PageController',
-            'manufacturers' => $manufacturers
+            'manufacturers' => $manufacturers,
+            'title' => 'Choix du constructeur'
+
         ]);
     }
 
@@ -62,7 +64,8 @@ class SelectMapController extends AbstractController
         return $this->render('select_map/index.html.twig', [
             'controller_name' => 'PageController',
             'manufacturers' => $manufacturers,
-            'manufacturerSelected' => $manufacturer
+            'manufacturerSelected' => $manufacturer,
+            'title' => 'Choix du modèle'
         ]);
     }
 
@@ -78,7 +81,8 @@ class SelectMapController extends AbstractController
             'controller_name' => 'PageController',
             'manufacturers' => $manufacturers,
             'manufacturerSelected' => $manufacturer,
-            'modelSelected' => $model
+            'modelSelected' => $model,
+            'title' => 'Choix de la génération'
         ]);
     }
 
@@ -97,7 +101,8 @@ class SelectMapController extends AbstractController
             'manufacturers' => $manufacturers,
             'manufacturerSelected' => $manufacturer,
             'modelSelected' => $model,
-            'generationSelected' => $generation
+            'generationSelected' => $generation,
+            'title' => 'Choix de la motorisation'
         ]);
     }
 }

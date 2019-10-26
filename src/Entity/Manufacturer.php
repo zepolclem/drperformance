@@ -63,6 +63,13 @@ class Manufacturer
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="VehicleType", nullable=true)
+     */
+    private $TypeVehicle;
+
+
+
     public function __construct()
     {
         $this->models = new ArrayCollection();
@@ -174,6 +181,18 @@ class Manufacturer
     public function setUpdated(?DateTime $date): self
     {
         $this->updated = $date;
+
+        return $this;
+    }
+
+    public function getTypeVehicle()
+    {
+        return $this->TypeVehicle;
+    }
+
+    public function setTypeVehicle($TypeVehicle): self
+    {
+        $this->TypeVehicle = $TypeVehicle;
 
         return $this;
     }

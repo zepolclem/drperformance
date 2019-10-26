@@ -19,6 +19,9 @@ class ManufacturerType extends AbstractType
             ->add('name', null, [
                 'label' => 'Nom'
             ])
+            ->add('TypeVehicle', null, [
+                'label' => 'Type de constructeur',
+            ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',
                 'attr' => ['class' => 'ckeditor']

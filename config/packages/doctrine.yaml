@@ -2,6 +2,7 @@ doctrine:
     dbal:
         types:
             EngineEnergyType: App\DBAL\Types\EngineEnergyType
+            VehicleType: App\DBAL\Types\VehicleType
         # configure these for your database server
         driver: 'pdo_mysql'
         server_version: '5.7'

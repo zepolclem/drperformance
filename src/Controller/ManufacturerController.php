@@ -15,6 +15,7 @@ use App\Service\FileUploader;
 
 
 
+
 /**
  * @Route("/manufacturer")
  * @IsGranted("ROLE_ADMIN")
