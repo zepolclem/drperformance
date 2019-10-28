@@ -21,6 +21,7 @@ class ManufacturerType extends AbstractType
             ])
             ->add('TypeVehicle', null, [
                 'label' => 'Type de constructeur',
+                'required' => true
             ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',

@@ -15,7 +15,7 @@
         {% endblock %}
     </head>
 
-    <body class="bg-carbon text-light">
+    <body class="bg-carbon-faded text-light">
 
         {% include "_navbar.html.twig" %}
 
@@ -30,9 +30,9 @@
             {% endblock %}
         </div>
 
-        {% if app.request.get('_route') == 'home' %}
-            {% include "page/_footer.html.twig" %}
-        {% endif %}
+        {# {% if app.request.get('_route') == 'home' %}{% endif %} #}
+
+        {% include "page/_footer.html.twig" %}
 
 
         {% block javascripts %}
@@ -48,6 +48,9 @@
             <script type="text/javascript">
                 $(function () {
                     $('textarea.ckeditor').ckeditor();
+                });
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
                 });
             </script>
             <script src="/assets/js/drp.js"></script>

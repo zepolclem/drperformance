@@ -27,8 +27,14 @@ class ManufacturerController extends AbstractController
      */
     public function index(ManufacturerRepository $manufacturerRepository): Response
     {
+
         return $this->render('manufacturer/index.html.twig', [
             'manufacturers' => $manufacturerRepository->findAll(),
+            'cars' => $manufacturerRepository->findByAllByTypeSortedByName("CAR"),
+            'bikes' => $manufacturerRepository->findByAllByTypeSortedByName("BIKE"),
+            'atvs' => $manufacturerRepository->findByAllByTypeSortedByName("ATV"),
+            'jets' => $manufacturerRepository->findByAllByTypeSortedByName("JET")
+
         ]);
     }
 
@@ -51,7 +57,11 @@ class ManufacturerController extends AbstractController
                 $manufacturer->setlogo($logoName);
             }
 
-            $manufacturer->setSlug($manufacturer->getName());
+            if ($form["TypeVehicle"]->getData() != null && $form["TypeVehicle"]->getData() != "CAR") {
+                $manufacturer->setSlug($manufacturer->getName() . " " . $form["TypeVehicle"]->getData());
+            } else {
+                $manufacturer->setSlug($manufacturer->getName());
+            }
             $manufacturer->setCreated(date_create());
             $manufacturer->setUpdated(date_create());
 
@@ -88,7 +98,11 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $manufacturer->setSlug($manufacturer->getName());
+            if ($form["TypeVehicle"]->getData() != null && $form["TypeVehicle"]->getData() != "CAR") {
+                $manufacturer->setSlug($manufacturer->getName() . " " . $form["TypeVehicle"]->getData());
+            } else {
+                $manufacturer->setSlug($manufacturer->getName());
+            }
             $logo = $form['logo']->getData();
 
             if ($logo) {
@@ -100,6 +114,8 @@ class ManufacturerController extends AbstractController
                 $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
                 $manufacturer->setlogo($logoName);
             }
+
+
             $manufacturer->setUpdated(date_create());
             $this->getDoctrine()->getManager()->flush();
 

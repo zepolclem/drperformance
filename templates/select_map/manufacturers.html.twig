@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if title is defined %}
+        {{title}}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container text-dark pt-5">
+        <header class="row pt-5 align-items-center">
+            <div class="col-12 text-light">
+                <h1>
+                    Reprogrammation
+                    {{type}}
+                </h1>
+                <p class="lead">
+                    La reprogrammation de votre ECU permet d'<b>optimiser sa cartographie</b>
+                    afin d'obtenir un gain en puissance, couple et consommation.
+
+                </p>
+                <h3>Optimisez votre moteur. 
+                    Consommez moins.</h3>
+                <p>
+                    Avec de nombreuses années d'expérience en mécanique et en
+                    <b>diagnostic / reprogrammation</b>
+                    des ECU, je dispose de tout le matériel nécessaire afin de répondre aux différentes demandes que ce soit une détection de panne ou bien une optimisation de la cartographie du véhicule, quels que soient le type de véhicule ainsi que la marque et le modèle, dans la mesure du possible.
+
+                </p>
+                <p>
+                    Je peux également m'occuper de cloner un calculateur moteur (lors d'un ECU à changer par exemple), proposer des solutions pour le FAP, l'EGR, l'Addblue ou encore le NOX², supprimer les codes "défauts", faire un reset du crash airbag, adapter le codage du calculateur, mettre à jour le code en ligne usine.
+                </p>
+
+            </div>
+        </header>
+        <main class="row pt-5 align-items-center">
+            <div class="col-12 text-light">
+                <h2>Choix du constructeur</h2>
+            </div>
+            {% for manufacturer in manufacturers %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <button type="button" class="bg-transparent btn" data-toggle="tooltip" data-placement="bottom" title="{{manufacturer.name}}">
+                        <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">
+                            <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" width="" class="img-fluid p-0 mr-3" alt="...">
+                        {# <br> #}
+                            {# {{manufacturer.name}} #}
+                        </a>
+                    </button>
+                </div>
+            {% endfor %}
+        </main>
+        <div class="row pt-5 align-items-center">
+            <div class="col-12">
+                <ul class="list-inline">
+                    {% for manufacturer in manufacturers %}
+                        <li class="list-inline-item">
+                            <a class="lead" href="{{path('select_model', {'slug' : manufacturer.slug})}}">{{manufacturer.name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -7,37 +7,60 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container text-dark pt-5">
-        <div class="row pt-5">
-            <div class="col-12 col-md-3">
-                <ul class="list-group">
-                    {% for manufacturer in manufacturers %}
-                        <li class="list-group-item {% if manufacturerSelected is defined and manufacturerSelected == manufacturer  %} bg-dark border {% endif %}">
-                            <a href="{{path('select_model', {'slug' : manufacturer.slug})}}">
-                                <img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" width="50px" class="img-fluid p-0 mr-3" alt="...">
-                                {{manufacturer.name}}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+
+    <div class="container py-5">
+
+        <div class="col-12">
+            <a href="{{ path('select_manufacturer')}}">
+                <i class="fi-xwllxl-arrow-simple-wide"></i>
+                Retour à la liste des constructeurs
+            </a>
+        </div>
+    </div>
+
+    <div
+        class="container text-dark">
+
+        {# ENTETE  #}
+
+        {% if manufacturerSelected is defined %}
+            <div class="row align-items-center text-light">
+                <div class="col-12 col-md-4">
+                    <img src="/uploads/logos/manufacturers/{{manufacturerSelected.logo}}" width="" class="img-fluid p-0 mr-3" alt="{{manufacturerSelected.name}} reprogrammmation ECU Drp drperformance">
+                </div>
+                <div class="col-12 col-md-5">
+                    <h1 class="text-center">{{manufacturerSelected.name}}</h1>
+                </div>
+                <div class="col-10 col-md-3 text-right">
+                    <p>{{manufacturerSelected.resume|raw}}</p>
+                </div>
             </div>
-            <div class="col-12 col-md-3">
+        {% endif %}
+
+        {# ONGLETS  #}
+
+        <div class="row pt-5 text-center text-monospace">
+            <div class="col-12 col-md-4 pb-2">
                 {% if manufacturerSelected is defined %}
                     <ul class="list-group">
                         {% for model in manufacturerSelected.models %}
-                            <li class="list-group-item {% if modelSelected is defined and  modelSelected == model %} bg-dark border {% endif %}">
-                                <a href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}</a>
+                            <li class="list-group-item{% if modelSelected is defined and  modelSelected == model %} bg-dark border {% endif %}">
+                                <a class="stretched-link text-decoration-none {% if modelSelected is defined and modelSelected == model  %} text-light {% else %} text-dark {% endif %}" href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}
+                                </a>
+
+
                             </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4 pb-2">
+
                 {% if modelSelected is defined %}
                     <ul class="list-group">
                         {% for generation in modelSelected.generations %}
                             <li class="list-group-item {% if generationSelected is defined and generationSelected == generation  %} bg-dark border {% endif %} ">
-                                <a href="{{path('select_engine', {'slug' : generation.slug})}}">
+                                <a class="stretched-link text-decoration-none {% if generationSelected is defined and generationSelected == generation  %} text-light {% else %} text-dark {% endif %}" href="{{path('select_engine', {'slug' : generation.slug})}}">
                                     {{generation.name}}
                                     –
                                     {{generation.startYear}}
@@ -51,18 +74,20 @@
                     </ul>
                 {% endif %}
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4 pb-2">
                 {% if generationSelected is defined %}
                     <ul class="list-group">
                         {% for engine in generationSelected.engines|sortbyfield('energy') %}
                             <li class="list-group-item">
-                                <a href="{{ path('engine_selected_show', {'slug' : engine.slug})}}">{{engine.name}}
+                                <a class="stretched-link text-decoration-none text-dark" href="{{ path('engine_selected_show', {'slug' : engine.slug})}}">{{engine.name}}
                                     |
                                     {{engine.power}}
                                     ch
                                 </a>
                             </li>
                         {% endfor %}
+
+
                     </ul>
                 {% endif %}
             </div>

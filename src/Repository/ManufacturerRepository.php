@@ -35,6 +35,17 @@ class ManufacturerRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByAllByTypeSortedByName($type)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.TypeVehicle = :val')
+            ->setParameter('val', $type)
+            ->orderBy('m.name', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Manufacturer[] Returns an array of Manufacturer objects
     //  */

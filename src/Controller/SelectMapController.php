@@ -34,24 +34,48 @@ class SelectMapController extends AbstractController
             'manufacturer' => $manufacturer,
             'model' => $model,
             'generation' => $generation,
-            'engine' => $engine
+            'engine' => $engine,
         ]);
     }
 
     /**
-     * @Route("/reprogrammations", name="select_manufacturer")
+     * @Route("/reprogrammations/{type_vehicle}", name="select_manufacturer")
      */
-    public function selectManufacturer(ManufacturerRepository $manufacturerRepository)
+    public function selectManufacturer(ManufacturerRepository $manufacturerRepository, String $type_vehicle = "cars")
     {
-        $manufacturers =  $manufacturerRepository->findByAllSortedByName();
 
-        return $this->render('select_map/index.html.twig', [
-            'controller_name' => 'PageController',
+        switch ($type_vehicle) {
+            case 'cars':
+                $manufacturers = $manufacturerRepository->findByAllByTypeSortedByName("CAR");
+                $type = "autos";
+                break;
+            case 'bikes':
+                $manufacturers = $manufacturerRepository->findByAllByTypeSortedByName("BIKE");
+                $type = "motos et scooters";
+                break;
+            case 'atvs':
+                $manufacturers = $manufacturerRepository->findByAllByTypeSortedByName("ATV");
+                $type = "quads";
+                break;
+            case 'jets':
+                $manufacturers = $manufacturerRepository->findByAllByTypeSortedByName("JET");
+                $type = "jets";
+                break;
+            default:
+                $manufacturers = $manufacturerRepository->findByAllByTypeSortedByName("CAR");
+                $type = "autos";
+                break;
+        }
+
+
+        return $this->render('select_map/manufacturers.html.twig', [
             'manufacturers' => $manufacturers,
-            'title' => 'Choix du constructeur'
+            'title' => 'Choix du constructeur | ' . $type,
+            'type' => $type
 
         ]);
     }
+
 
     /**
      * @Route("/reprogrammations/manufacturer/{slug}", name="select_model")
@@ -65,7 +89,7 @@ class SelectMapController extends AbstractController
             'controller_name' => 'PageController',
             'manufacturers' => $manufacturers,
             'manufacturerSelected' => $manufacturer,
-            'title' => 'Choix du modèle'
+            'type' => 'Choix du modèle'
         ]);
     }
 
@@ -82,7 +106,7 @@ class SelectMapController extends AbstractController
             'manufacturers' => $manufacturers,
             'manufacturerSelected' => $manufacturer,
             'modelSelected' => $model,
-            'title' => 'Choix de la génération'
+            'type' => 'Choix de la génération'
         ]);
     }
 
@@ -102,7 +126,7 @@ class SelectMapController extends AbstractController
             'manufacturerSelected' => $manufacturer,
             'modelSelected' => $model,
             'generationSelected' => $generation,
-            'title' => 'Choix de la motorisation'
+            'type' => 'Choix de la motorisation'
         ]);
     }
 }
