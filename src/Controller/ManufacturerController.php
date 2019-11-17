@@ -14,8 +14,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use App\Service\FileUploader;
 
 
-
-
 /**
  * @Route("/manufacturer")
  * @IsGranted("ROLE_ADMIN")
@@ -51,11 +49,7 @@ class ManufacturerController extends AbstractController
 
             $logo = $form['logo']->getData();
 
-            if ($logo) {
-                $fileUploader = new FileUploader('uploads/logos/manufacturers');
-                $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
-                $manufacturer->setlogo($logoName);
-            }
+
 
             if ($form["TypeVehicle"]->getData() != null && $form["TypeVehicle"]->getData() != "CAR") {
                 $manufacturer->setSlug($manufacturer->getName() . " " . $form["TypeVehicle"]->getData());
@@ -64,6 +58,16 @@ class ManufacturerController extends AbstractController
             }
             $manufacturer->setCreated(date_create());
             $manufacturer->setUpdated(date_create());
+
+            if ($logo) {
+                $fileUploader = new FileUploader('uploads/logos/manufacturers');
+                $filesystem = new Filesystem;
+                if ($filesystem->exists('uploads/logos/manufacturers/' . $manufacturer->getLogo())) {
+                    $filesystem->remove(['symlink', 'uploads/logos/manufacturers/' . $manufacturer->getLogo(), 'activity.log']);
+                }
+                $logoName =  $fileUploader->upload($logo, $manufacturer->getslug());
+                $manufacturer->setlogo($logoName);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manufacturer);
