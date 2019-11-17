@@ -16,14 +16,14 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $admin = new User();
-        $admin->setEmail('lopez.clmnt@gmail.com');
-        $admin->setPassword($this->passwordEncoder->encodePassword(
-            $admin,
-            'projectgtr'
-        ));
+        // $admin = new User();
+        // $admin->setEmail('lopez.clmnt@gmail.com');
+        // $admin->setPassword($this->passwordEncoder->encodePassword(
+        //     $admin,
+        //     'projectgtr'
+        // ));
 
-        $manager->flush();
+        // $manager->flush();
     }
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)

@@ -1,41 +1,53 @@
-<footer class=" pt-3 mt-5 bg-carbon-alt border-top border-success" id="contact">
-
-    <div class="container py-4">
-        <div class="row">
-            <div class="col-12 col-md">
-                <h5>Contact</h5>
-                <div class="bd-example">
-                    <address>
-                        <strong>DRPerformance</strong><br/>
-                        120 Zone Artisanal du Tuquet 1<br/>
-                        40150 Angresse<br/>
-                    </address>
-                    <address>
-                        <a href="tel:+33524624744">05 24 62 47 44</a>
-                        <br>
-                        <a href="tel:+33524624744">06 33 33 44 27</a>
-                        <br>
-                        <a href="mailto:contact@drperformance.fr">contact@drperformance.fr</a>
-                    </address>
-                </div>
-            </div>
-            <div class="col-12 col-md text-right">
-                <h5>Spécialités</h5>
-                <ul class="list-unstyled text-small">
-                    <li class="text-monospace">Reprogrammation ECU</li>
-                    <li class="text-monospace">Diagnostic partiel ou complet</li>
-                    <li class="text-monospace">Remise à zero code erreur</li>
-                    <li class="text-monospace">Entretien / Réparation</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
+<footer class="mt-5 bg-carbon-alt border-top border-success" id="contact">
 
     <div class="container">
-        <div class="row">
 
-            <div class="col-12">
+        <div class="row  pt-5 ">
+
+
+            <div class="col-12 col-lg-4 h-100">
+
+                <h3 class="font-weight-bold">Contact</h3>
+
+                <address>
+                    <strong>DRPerformance</strong><br/>
+                    120 Zone Artisanal du Tuquet 1<br/>
+                    40150 Angresse<br/>
+                </address>
+                <address>
+                    <a href="tel:+33524624744">05 24 62 47 44</a>
+                    <br>
+                    <a href="tel:+33633334427">06 33 33 44 27</a>
+                    <br>
+                    <a href="mailto:contact@drperformance.fr">contact@drperformance.fr</a>
+                </address>
+
+                <hr>
+
+                <p>Vous pouvez également nous contacter à partir du formulaire de contact ci-dessous.</p>
+
+
+                {{ form_start(contactForm) }}
+                {{ form_widget(contactForm) }}
+                {{ form_end(contactForm) }}
+
+
+            </div>
+
+            <div class="col-12 col-lg-8 h-100">
+
+
+                <h3 class="font-weight-light">Où sommes-nous situés ?</h3>
+                <p class="font-weigth-bold">Nous sommes situés à Angresse dans le sud-ouest de la France, à la frontière des Landes et des Pyrénées-Atlantiques, à proximité de Dax et de Bayonne.</p>
+
+
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1477865.244903453!2d-2.4492737228632575!3d43.65949455496656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc64ecb0075d25b07!2sDRPerformance!5e0!3m2!1sfr!2sfr!4v1572801815107!5m2!1sfr!2sfr" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+
+            </div>
+
+            <div class="col-12 pt-3 text-right">
                 <ul class="list-inline text-small">
                     <li class="list-inline-item">
                         <a href="#">Conditions générales de vente</a>
@@ -51,18 +63,9 @@
                 </ul>
             </div>
 
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.526657154981!2d-1.3395123837570826!3d43.6580155601359!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51504503f99685%3A0xc64ecb0075d25b07!2sSASU+DRPERFORMANCE!5e0!3m2!1sfr!2sfr!4v1557844511842!5m2!1sfr!2sfr" width="auto" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-
-            </div>
         </div>
+
     </div>
 
 

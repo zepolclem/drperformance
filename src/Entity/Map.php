@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -70,6 +72,16 @@ class Map
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="map")
+     */
+    private $achievements;
+
+    public function __construct()
+    {
+        $this->achievements = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -182,6 +194,37 @@ class Map
     {
         $slug = new slugify();
         $this->slug  =  $slug->slugify($stringToslugify);
+        return $this;
+    }
+
+    /**
+     * @return Collection|Achievement[]
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievement $achievement): self
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements[] = $achievement;
+            $achievement->setMap($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievement $achievement): self
+    {
+        if ($this->achievements->contains($achievement)) {
+            $this->achievements->removeElement($achievement);
+            // set the owning side to null (unless already changed)
+            if ($achievement->getMap() === $this) {
+                $achievement->setMap(null);
+            }
+        }
+
         return $this;
     }
 }

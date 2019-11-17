@@ -7,14 +7,29 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContactFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('mail', EmailType::class, array('label' => false, 'attr' => array('placeholder' => 'Adresse Email', 'class' => 'validate-required validate-email')))
-            ->add('save', SubmitType::class, ['label' => 'Envoyer', 'attr' => array('class' => 'btn btn--primary type--uppercase')]);
+            ->add('mail', EmailType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => array(
+                    'placeholder' => 'Adresse Email',
+                    'class' => 'validate-required validate-email'
+                )
+            ])
+            ->add('message', TextareaType::class, [
+                'label' => 'Message',
+                'required' => true,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Envoyer',
+                'attr' => array('class' => 'btn btn-primary type-uppercase')
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

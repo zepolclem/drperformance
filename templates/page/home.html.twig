@@ -1,78 +1,151 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}La solution pour votre auto !
 {% endblock %}
 
 {% block body %}
 
-    <div class="container">
 
-        <div class="row">
-            <div class="col-12 text-center">
-                <img src="/assets/img/logos/logo.png" alt="" class="img-fluid">
-            </div>
-        </div>
-
-        <div class="row pt-5 text-center" id="services">
-            <div class="col-12 col-lg-4">
-                <h2>Diagnostique</h2>
+    <div class="container py-3" id="services">
+        <div class="row text-center">
+            <div class="col-12  col-md-6 col-lg-4">
                 <div class="py-3">
                     <i class="fas fa-3x fa-search text-primary"></i>
                 </div>
+                <h3 class="text-monospace">Diagnostique</h3>
             </div>
-            <div class="col-12 col-lg-4">
-                <h2>Reprogrammation</h2>
+            <div class="col-12  col-md-6 col-lg-4">
                 <div class="py-3">
                     <i class="fas fa-3x fa-microchip text-success"></i>
                 </div>
+                <h3 class="text-monospace">Reprogrammation</h3>
             </div>
-            <div class="col-12 col-lg-4">
-                <h2>Performance</h2>
+            <div class="col-12 col-md-6 col-lg-4 mx-auto">
                 <div class="py-3">
                     <i class="fas fa-3x fa-tachometer-alt text-danger"></i>
                 </div>
+                <h3 class="text-monospace">Performance</h3>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-12 text-center">
+                <ul class="list-inline">
+                    <li class="list-inline-item text-danger">Reprogrammation moteur (ECU)</li>
+                    <li class="list-inline-item text-primary">Diagnostic partiel ou complet</li>
+                    <li class="list-inline-item text-success">Suppresion et remise à zero code erreur</li>
+                    <li class="list-inline-item text-danger">Passage au banc d'essai</li>
+                    <li class="list-inline-item text-success">Clonage calculateur moteur</li>
+                    <li class="list-inline-item text-primary">Solutions FAP, EGR, AdBlue</li>
+                    <li class="list-inline-item">Montage pièces de compétition</li>
+                    <li class="list-inline-item text-success">Reset Crash Airbag</li>
+                    <li class="list-inline-item text-primary">Mise à jour du code en ligne usine</li>
+                    <li class="list-inline-item text-success">Adapatation codage calculateur</li>
+                </ul>
             </div>
         </div>
 
-        <div class="row pt-5">
-            <div class="col-12 mx-auto">
+
+        <div class="row py-3 align-items-center">
+            <div class="col-12 col-lg-8">
                 <p>
-                    Bievenue sur mon site internet ! Je suis Christian "KIKI" Carrey, ma société "DRPerformance" est spécialisée dans la reprogrammation de la cartographie des calculateurs de véhicules (ECU), dans la détection de panne par diagnostic partiel ou complet ainsi que dans la suppression de codes erreur, pour tout type de véhicule, marque et modèle.
+                    Bienvenue chez DRPerformance !
+                </p>
+                <p class="lead">
+                    Nous sommes spécialisés dans la reprogrammation des calculateurs de véhicules, dans la détection de panne par diagnostic partiel ou complet ainsi que dans la suppression de codes erreur pour tout type de véhicule, marque et modèle.
                 </p>
                 <p>
-                    Mon entreprise est située dans les Landes, dans une petite zone artisanale dans le village d'Angresse, à proximité de Capbreton et Hossegor.
+                    Les marques Allemandes n'ont aucun secret pour moi mais je suis tout autant performant sur les autres marques, prestigieuses ou non.</p>
+                <p class="lead text-green-drp">
+                    Optimiser votre Audi A3 ou bien votre Peugeot 208 ne sera pas un problème !
                 </p>
                 <p>
-                    Les marques Allemandes n'ont aucun secret pour moi mais je suis tout autant performant sur les autres marques, prestigieuses ou non. Optimiser votre Honda Civic Type R ou bien votre Peugeot 208 ne sera pas un problème.
+                    Notre entreprise est située dans les Landes, dans une petite zone artisanale dans le village d'Angresse, à proximité de Capbreton et Hossegor.
+                </p>
+
+            </div>
+            <div class="col-12 col-lg-4">
+                <ul class="list-unstyled text-right">
+                    <li class="text-monospace text-danger">Reprogrammation ECU</li>
+                    <li class="text-monospace text-primary">Diagnostic partiel ou complet</li>
+                    <li class="text-monospace text-success">Remise à zero code erreur</li>
+                    <li class="text-monospace text-primary">Entretien / Réparation</li>
+                    <li class="text-monospace text-danger">Passage au banc d'essai</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container jumbotron bg-carbon-alt shadow border-success border py-5">
+
+        <div class="row">
+            <div class="col-12">
+                <h2>Reprogrammations</h2>
+                <h4 class="text-success">Optimisez votre moteur</h4>
+                <h5 class="text-muted">Réduisez votre consommation !</h5>
+                <p>
+                    La reprogrammation de votre ECU permet d'optimiser sa cartographie afin d'obtenir un gain de puissance, couple et une réduction de la consommation de votre moteur.
                 </p>
             </div>
         </div>
 
-        <div class="row pt-5">
-            <div class="col-md-7 align-self-center">
-                <h2 class="featurette-heading">
-                    Optimisez votre moteur.
-                    <br/>
-                    <span class="text-muted">Consommez moins.</span>
-                </h2>
-                <p>
-                    La reprogrammation de votre ECU permet d'optimiser sa cartographie afin d'obtenir un gain en puissance, couple et consommation. Il est possible de faire dans les deux sens. On "upgrade" lorsque l'on applique une cartographie autre que celle par défaut, on "downgrade" lorsque l'on remet celle d'origine.
-                </p>
+        <div class="row">
+            <div class="col-12 pt-5">
+                <h5>Nos dernieres réalisations :</h5>
+                <ul class="list-unstyled">
+
+                    {% for map in lastMaps %}
+
+                        <div class="media">
+                            <img src="/uploads/pictures/generations/{{map.engine.generation.picture}}" class="mr-3 img-fluid" width="200px" alt="...">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">{{ map.name}}
+                                    -
+                                    {{map.engine.generation.name}}
+                                </h5>
+                                <span class="text-green-drp">+
+                                    {{map.power - map.engine.power}}
+                                    ch
+                                </span>
+                                <br>
+
+
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-12 pt-5 text-center">
                 <p class="lead">
                     Gain de puissance et de couple.
                     <br/>
                     Consommation réduite.
                 </p>
+
+                <a class="btn btn-primary" href="/reprogrammations">Chercher une reprogrammation pour mon véhicule</a>
             </div>
-            <div class="col-md-5 align-self-center">
-                <img src="/assets/img/benz.jpg" class="img-fluid" alt="Responsive image"/>
-            </div>
-            <div class="col-12">
+            <div class="col-12 pt-5">
                 <p>
                     Je peux également m'occuper de cloner un calculateur moteur (lors d'un ECU à changer par exemple), proposer des solutions pour le FAP, l'EGR, l'Addblue ou encore le NOX², supprimer les codes "défauts", faire un reset du crash airbag, adapter le codage du calculateur, mettre à jour le code en ligne usine.
                 </p>
             </div>
+
         </div>
+    </div>
+
+
+    <div class="container">
+
+
+        <div class="row pt-5">
+            <div class="col-12 mx-auto">
+
+                <p></p>
+            </div>
+        </div>
+
 
         <div class="row featurette pt-5">
             <div class="col-md-7 order-md-2 align-self-center">
@@ -91,7 +164,7 @@
                 </p>
             </div>
             <div class="col-md-5 order-md-1 align-self-center">
-                <img src="/assets/img/amg.jpg" class="img-fluid" alt="Responsive image"/>
+                <img src="/assets/img/vitrine/board.jpg" class="img-fluid" alt="Responsive image"/>
             </div>
         </div>
 
@@ -107,7 +180,7 @@
                 </p>
             </div>
             <div class="col-md-5  align-self-center">
-                <img src="/assets/img/r8.jpg" class="img-fluid" alt="Responsive image"/>
+                <img src="/assets/img/vitrine/oil.jpg" class="img-fluid" alt="Responsive image"/>
             </div>
         </div>
         <div class="row pt-5">

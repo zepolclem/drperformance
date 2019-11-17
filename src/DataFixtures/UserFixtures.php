@@ -20,6 +20,16 @@ class UserFixtures extends Fixture
             'projectgtr'
         ));
         $manager->persist($clement);
+
+        $clement = new User();
+        $clement->setEmail('admin@drperformance.fr');
+        $clement->setRoles(["ROLE_ADMIN"]);
+        $clement->setPassword($this->passwordEncoder->encodePassword(
+            $clement,
+            'kiki40kiki'
+        ));
+        $manager->persist($clement);
+
         $manager->flush();
     }
 

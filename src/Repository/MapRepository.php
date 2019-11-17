@@ -19,22 +19,21 @@ class MapRepository extends ServiceEntityRepository
         parent::__construct($registry, Map::class);
     }
 
-    // /**
-    //  * @return Map[] Returns an array of Map objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Map[] Returns an array of Map objects
+     */
+
+    public function findByLatest()
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            // ->andWhere('m.exampleField = :val')
+            // ->setParameter('val', $value)
+            ->orderBy('m.updated', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Map

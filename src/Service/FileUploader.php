@@ -14,12 +14,14 @@ class FileUploader
         $this->targetDirectory = $targetDirectory;
     }
 
-    public function upload(UploadedFile $file, String $name = null)
+    public function upload(UploadedFile $file, String $name)
     {
         // $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         // $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
         // $fileName = '_logo' . $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
-        $fileName = $name . '_' . uniqid()  . '.' . $file->guessExtension();
+        // $fileName = $name . '_' . uniqid()  . '.' . $file->guessExtension();
+        $fileName = $name  . '.' . $file->guessExtension();
+
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);

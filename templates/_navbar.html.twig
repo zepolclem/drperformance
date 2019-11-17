@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-carbon-alt border-bottom  border-success shadow-lg fixed-top" id="drp_navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-carbon-alt border-bottom  border-success shadow-lg" id="drp_navbar">
 
 
     <div class="container">
@@ -12,12 +12,54 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <span class="navbar-text">
+                La solution pour votre auto !
+            </span>
+
 
             <ul class="navbar-nav ml-auto">
 
-                {% if app.user %}
 
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
+                    <a class="nav-link   dropdown-toggle btn bg-carbon mx-1 mb-1 text-light border" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reprogrammations</a>
+                    <div class="dropdown-menu" aria-labelledby="manufacturerDropdown">
+                        <a class="dropdown-item" href="/reprogrammations">Reprogrammations Auto</a>
+                        <a class="dropdown-item" href="/reprogrammations">Reprogrammations Moto</a>
+                    </div>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link btn bg-carbon mx-1 mb-1 text-light border" href="#contact">Contact</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn bg-carbon mx-1 mb-1 text-light border" href="tel:tel:+33633334427">0633334427</a>
+
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% if app.user %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-carbon-alt border-top border-danger shadow-lg fixed-bottom" id="drp_navbar">
+
+
+        <div class="container mx-auto text-center">
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+
+                <ul class="navbar-nav">
+
+
+                    <li class="nav-item dropup">
                         <a class="nav-link dropdown-toggle" href="/" id="manufacturerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Administration</a>
                         <div class="dropdown-menu" aria-labelledby="manufacturerDropdown">
@@ -26,7 +68,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropup">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ app.user.username }}</a>
                         <div class="dropdown-menu" aria-labelledby="userDropdown">
@@ -35,36 +77,8 @@
                     </li>
 
 
-                {% endif %}
-
-                {% if app.request.get('_route') == 'home' %}
-
-                    <li class="nav-item">
-                        <a class="nav-link  btn bg-green-drp mx-1 mb-1 text-dark" href="/reprogrammations">Reprogrammations</a>
-
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link btn bg-green-drp mx-1 mb-1 text-dark" href="#services">Services</a>
-
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link btn bg-green-drp mx-1 mb-1 text-dark" href="#prestations">Prestations</a>
-
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link btn bg-green-drp mx-1 mb-1 text-dark" href="#contact">Contact</a>
-
-
-                    </li>
-                {% endif %}
-
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+{% endif %}

@@ -45,9 +45,9 @@
                     <ul class="list-group">
                         {% for model in manufacturerSelected.models %}
                             <li class="list-group-item{% if modelSelected is defined and  modelSelected == model %} bg-dark border {% endif %}">
+
                                 <a class="stretched-link text-decoration-none {% if modelSelected is defined and modelSelected == model  %} text-light {% else %} text-dark {% endif %}" href="{{path('select_generation', {'slug' : model.slug})}}">{{model.name}}
                                 </a>
-
 
                             </li>
                         {% endfor %}
