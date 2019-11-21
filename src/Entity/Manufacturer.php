@@ -73,6 +73,8 @@ class Manufacturer
     public function __construct()
     {
         $this->models = new ArrayCollection();
+        // $this->created = date_create();
+        // $this->updated = date_create();
     }
 
 
@@ -112,7 +114,7 @@ class Manufacturer
 
     public function setLogo(?string $logo): self
     {
-        $this->logo = $logo;
+        $this->logo = $logo . '.png';
 
         return $this;
     }

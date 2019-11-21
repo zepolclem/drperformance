@@ -91,6 +91,17 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+@media (min-width: 768px) {
+    .col-lg-1-5 {
+        flex: 0 0 12.3%;
+        max-width: 12.3%;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
 /* @media (min-width: 768px) {
     .logo_navbar {
         max-height: 80px;

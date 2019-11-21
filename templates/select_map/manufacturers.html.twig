@@ -21,12 +21,10 @@
 				<h2>Choix du constructeur</h2>
 			</div>
 			{% for manufacturer in manufacturers %}
-				<div class="col-6 col-sm-4 col-md-3 col-lg-3 pt-3">
+				<div class="col-4 col-sm-3 col-md-2 col-lg-1-5 pt-3">
 					<button type="button" class="bg-transparent btn" data-toggle="tooltip" data-placement="bottom" title="{{manufacturer.name}}">
 						<a href="{{path('select_model', {'slug' : manufacturer.slug})}}">
-							<img src="/uploads/logos/manufacturers/{{manufacturer.name|lower}}.png" width="" class="img-fluid p-0 mr-3" alt="...">
-							<br>
-							{{manufacturer.name}}
+							<img src="/uploads/logos/manufacturers/{{manufacturer.logo}}" width="" class="img-fluid p-0 mr-3" alt="...">
 						</a>
 					</button>
 				</div>

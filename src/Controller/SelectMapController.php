@@ -69,8 +69,8 @@ class SelectMapController extends AbstractController
 
 
         return $this->render('select_map/manufacturers.html.twig', [
-            // 'manufacturers' => $manufacturers,
-            'manufacturers' => $manufacturerRepository->findAll(),
+            'manufacturers' => $manufacturers,
+            // 'manufacturers' => $manufacturerRepository->findAll(),
 
             'title' => 'Choix du constructeur | ' . $type,
             'type' => $type
