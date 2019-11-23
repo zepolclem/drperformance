@@ -26,6 +26,8 @@ class ManufacturerFixtures extends Fixture
         $i = 0;
 
         $constructeursLogos = scandir('public/uploads/logos/manufacturers/');
+        // $constructeursLogos = scandir('public/uploads/logos/manufacturers_test/');
+
         // $constructeursLogos = scandir('/Users/zepol/Sites/drperformance/public/uploads/logos/manufacturers/');
 
         $manufacturersRef = [];
